@@ -8,5 +8,15 @@
 
 
 <ion-content padding>
-  <h2>It's a game...</h2>
+  <div *ngIf="reactionTime">
+    <h2>Your Score: {{ reactionTime }} ms</h2>
+  </div>
+ 
+  <button ion-button (click)="startGame()">Start Game</button>
+ 
+  
+  <div *ngIf="isPlayGame">
+      <button ion-button (click)="stopTime()">Drück mich</button>
+  </div>
+
 </ion-content>
