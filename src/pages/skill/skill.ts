@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the SkillPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+// import pages
+import { ReactionPage } from '../reaction/reaction';
 
 @IonicPage()
 @Component({
@@ -21,6 +17,19 @@ export class SkillPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SkillPage');
   }
+
+  goToReaction(): void {
+    this.navCtrl.push(ReactionPage);
+  }
+
+  goToCoordination(): void {
+
+  }
+
+  goToBalance(): void {
+
+  }
+
 
   swipe(event) {
     if (event.direction === 4) { // 4 = nach links swipen

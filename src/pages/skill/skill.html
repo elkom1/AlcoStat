@@ -7,6 +7,18 @@
 <ion-content padding>
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
-    <h2>Test your Skills Page</h2>
+    <ion-list >
+      <button ion-item  (click)="goToReaction()">
+        Teste deine Reaktion
+      </button>
+      
+      <button ion-item  (click)="goToCoordination()">
+        Teste deine Koordination
+      </button>
+      
+      <button ion-item  (click)="goToBalance()">
+        Teste deine Balance
+      </button>
+    </ion-list>
   </div>
 </ion-content>
