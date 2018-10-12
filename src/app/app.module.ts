@@ -11,6 +11,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// import plugins
+import { NativePageTransitions } from '@ionic-native/native-page-transitions';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,7 +37,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    // add plugin to providers
+    NativePageTransitions,
   ]
 })
-export class AppModule {}
+export class AppModule { }
