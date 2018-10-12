@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 // import pages
 import { ReactionPage } from '../reaction/reaction';
+import { CoordinationPage } from '../coordination/coordination';
+import { BalancePage } from '../balance/balance';
 
 @IonicPage()
 @Component({
@@ -23,11 +25,11 @@ export class SkillPage {
   }
 
   goToCoordination(): void {
-
+    this.navCtrl.push(CoordinationPage);
   }
 
   goToBalance(): void {
-
+    this.navCtrl.push(BalancePage);
   }
 
 

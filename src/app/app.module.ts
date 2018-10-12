@@ -9,6 +9,9 @@ import { SkillPage } from '../pages/skill/skill';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ReactionPage } from '../pages/reaction/reaction';
+import { CoordinationPage } from '../pages/coordination/coordination';
+import { BalancePage } from '../pages/balance/balance';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +27,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
     HomePage,
     TabsPage,
     ReactionPage,
+    CoordinationPage,
+    BalancePage,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
     HomePage,
     TabsPage,
     ReactionPage,
+    CoordinationPage,
+    BalancePage,
   ],
   providers: [
     StatusBar,
