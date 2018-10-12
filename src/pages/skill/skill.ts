@@ -22,4 +22,10 @@ export class SkillPage {
     console.log('ionViewDidLoad SkillPage');
   }
 
+  swipe(event) {
+    if (event.direction === 4) { // 4 = nach links swipen
+      this.navCtrl.parent.select(1); // 0 = statistic, 1 = home, 2 = skills
+    }
+  }
+
 }

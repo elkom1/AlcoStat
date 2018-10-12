@@ -22,4 +22,10 @@ export class StatisticPage {
     console.log('ionViewDidLoad StatisticPage');
   }
 
+  swipe(event) {
+    if (event.direction === 2) { // 2 = nach rechts swipen
+      this.navCtrl.parent.select(1); // 0 = statistic, 1 = home, 2 = skills
+    }
+  }
+
 }
