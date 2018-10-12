@@ -1,4 +1,6 @@
-<ion-tabs>
+<ion-tabs tabsPlacement="top" selectedIndex="1">
+  <!--Beim starten der App wird das oberste ion-tab als default angezeigt.
+  In diesem Fall die About Page -->
   <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Statistic" tabIcon="md-stats"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Skills" tabIcon="md-game-controller-a"></ion-tab>
