@@ -11,6 +11,8 @@ export class ReactionPage {
 
   // variable for game controll
   isPlayGame: boolean = false;
+  timeToWait: number;
+  __nativeST__:any = window.setTimeout
 
   // variables for getRandomColor
   letters: string = "0123456789ABCDEF";
@@ -31,8 +33,21 @@ export class ReactionPage {
 
   // methods
   startGame():void {
-    this.createdTime = new Date();
+    this.timeToWait = Math.random() * 2000;
+    console.log("startGame()");
+    this.setTimeout(this.buildDiv, this.timeToWait);
+  }
+
+  startGame2():void {
     this.isPlayGame = true;
+    this.createdTime = new Date();
+  }
+
+
+  buildDiv():void {
+    console.log("buildDiv");
+    this.isPlayGame = true;
+    this.createdTime = new Date();
   }
 
 
@@ -53,5 +68,24 @@ export class ReactionPage {
   }
 
 
+
+
+
+
+
+
+
+
+/*
+Helfer Methode, da defaul Funktion setTimeout das this nicht korrekt bindet.
+MDN: "this" wird in der aufgerufenen Funktion window oder global entsprechen,
+nicht dem "this" des Bereichs (reaction.ts), in dem  setTimeout() aufgerufen wurde.
+*/
+  setTimeout(vCallback, nDelay) {
+    var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
+    return this.__nativeST__(vCallback instanceof Function ? function () {
+      vCallback.apply(oThis, aArgs);
+    } : vCallback, nDelay);
+  };
 
 }

@@ -13,10 +13,15 @@
   </div>
  
   <button ion-button (click)="startGame()">Start Game</button>
- 
-  
-  <div *ngIf="isPlayGame">
-      <button ion-button (click)="stopTime()">Drück mich</button>
+
+  <div class="playGround" *ngIf="isPlayGame" (click)="stopTime()">
+
   </div>
+ 
+  <!--
+  <div *ngIf="isPlayGame" class="playGround">
+      <button ion-button full (click)="stopTime()">Drück mich</button>
+  </div>
+  -->
 
 </ion-content>
