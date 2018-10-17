@@ -7,7 +7,19 @@
 <ion-content padding>
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
-    <h2>Getränke erfassen...</h2>
+
+    <div class="drinkContainer">
+        <div class="drinkImage" (click)="onTest()"><img src="../../assets/imgs/logo.png" alt=""></div>
+        <div class="drinkImage"><img src="../../assets/imgs/logo.png" alt=""></div>
+        <div class="drinkImage"><img src="../../assets/imgs/logo.png" alt=""></div>
+        <div class="drinkImage"><img src="../../assets/imgs/logo.png" alt=""></div>
+    </div>
+
+    <p *ngIf="test">TEST</p>
+
+
+
+
   </div>
 
 </ion-content>

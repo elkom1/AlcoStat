@@ -6,10 +6,17 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  test: boolean = false;
 
   constructor(public navCtrl: NavController) {
 
   }
+
+  onTest():void {
+    this.test = true;
+  }
+
+
 
   /*
   swipe function
