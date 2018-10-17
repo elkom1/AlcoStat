@@ -11,13 +11,18 @@ export class ReactionPage {
 
   // variable for game controll
   isPlayGame: boolean = false;
+  isShowStartButton: boolean = true;
   timeToWait: number;
   __nativeST__:any = window.setTimeout
+
+  // variable for score
+  scores: number[] = [];
+  isShowScore: boolean = false;
 
   // variables for getRandomColor
   letters: string = "0123456789ABCDEF";
   letterArr: string[] = [];
-  color: string = "";
+  color: string = "red";
 
   // variables for time
   clickedTime: Date;
@@ -33,25 +38,44 @@ export class ReactionPage {
 
   // methods
   startGame():void {
-    this.timeToWait = Math.random() * 2000;
-    console.log("startGame()");
+    this.isShowStartButton = false;
+    this.getRandomColor();
+    this.timeToWait = Math.random() * 4000;
     this.setTimeout(this.buildDiv, this.timeToWait);
   }
 
-  startGame2():void {
-    this.isPlayGame = true;
-    this.createdTime = new Date();
-  }
-
-
   buildDiv():void {
-    console.log("buildDiv");
     this.isPlayGame = true;
     this.createdTime = new Date();
   }
 
+  stopTime(): void {
+    this.clickedTime = new Date();
+    this.reactionTime = Math.abs(this.clickedTime.getTime() - this.createdTime.getTime());
+    this.isPlayGame = false;
+    this.isShowStartButton = true;
+    this.saveScore(this.reactionTime);
+  }
 
-  // noch nicht im gebraucht...
+
+  saveScore(time: number): void {
+    this.scores.push(time);
+  }
+
+  showScores(): void {
+    this.isShowScore = true;
+  }
+
+  hideScore(): void {
+    this.isShowScore = false;
+  }
+
+
+
+
+
+// Helpt Methods
+
   getRandomColor():void {
     this.letters = "0123456789ABCDEF";
     this.letterArr = this.letters.split("");
@@ -59,22 +83,8 @@ export class ReactionPage {
     for (var i=0; i<6; i++) {
     this.color+= this.letterArr[Math.round(Math.random()*15)];
     }
+    
   }
-
-  stopTime(): void {
-    this.clickedTime = new Date();
-    this.reactionTime = Math.abs(this.clickedTime.getTime() - this.createdTime.getTime());
-    this.isPlayGame = false;
-  }
-
-
-
-
-
-
-
-
-
 
 /*
 Helfer Methode, da defaul Funktion setTimeout das this nicht korrekt bindet.

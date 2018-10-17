@@ -8,16 +8,30 @@
 
 
 <ion-content padding>
-  <div *ngIf="reactionTime">
-    <h2>Your Score: {{ reactionTime }} ms</h2>
-  </div>
- 
-  <button ion-button (click)="startGame()">Start Game</button>
+  <button ion-button block outline *ngIf="isShowStartButton" (click)="startGame()">
+    Let's test your reaction</button>
 
-  <div class="playGround" *ngIf="isPlayGame" (click)="stopTime()">
+  <p class="tip" *ngIf="isShowStartButton && !reactionTime">Tab, if screen turn colored</p>
 
+  <div *ngIf="reactionTime && isShowStartButton">
+    <p class="score">Your Score: {{ reactionTime }} ms</p>
   </div>
- 
+
+  <div class="playGround" *ngIf="isPlayGame" [style.background]="color" (click)="stopTime()"></div>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="showScores()">
+      <ion-icon name="md-stats"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <div *ngIf="isShowScore">
+    <ion-list>
+      <ion-item *ngFor="let score of scores">{{score}}</ion-item>
+    </ion-list>
+    <button ion-button ion-button round outline color="light" (click)="hideScore()">clear</button>
+  </div>
+
   <!--
   <div *ngIf="isPlayGame" class="playGround">
       <button ion-button full (click)="stopTime()">Drück mich</button>
