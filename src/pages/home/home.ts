@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+// imports for sliding 
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  // for sliding
+  @ViewChild(Slides) slides: Slides;
+
   test: boolean = false;
 
   constructor(public navCtrl: NavController) {

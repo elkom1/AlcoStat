@@ -8,6 +8,7 @@
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
 
+    <!--Select the drink-->
     <div class="drinkContainer">
         <div class="drinkImage" (click)="onTest()"><img src="../../assets/imgs/logo.png" alt=""></div>
         <div class="drinkImage"><img src="../../assets/imgs/logo.png" alt=""></div>
@@ -16,6 +17,28 @@
     </div>
 
     <p *ngIf="test">TEST</p>
+
+    <ion-slides>
+        <ion-slide>
+          <h1>Slide 1</h1>
+     
+        </ion-slide>
+        <ion-slide>
+          <h1>Slide 2</h1>
+        </ion-slide>
+        <ion-slide>
+          <h1>Slide 3</h1>
+        </ion-slide>
+      </ion-slides>
+
+  
+    <div class="addButtonContainer">
+        <button ion-button round icon-start >
+            <ion-icon name="md-checkmark-circle"></ion-icon>
+            Hinzufügen
+        </button>
+    </div>
+    
 
 
 

@@ -13,4 +13,15 @@ page-home {
         border-color:white;
     }
 
+    .addButtonContainer {
+        display: table;
+        text-align: center;
+    }
+
+    .addButton {
+        display: table-cell; 
+        vertical-align: bottom;
+
+    }
+
 }
