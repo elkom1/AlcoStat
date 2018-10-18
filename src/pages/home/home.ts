@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+// import Pages
+import { MidataAccountPage } from '../midata-account/midata-account';
+import { ProfilPage } from '../profil/profil';
+
 // imports for sliding 
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
+
+// import for more-button
+import { ActionSheetController } from 'ionic-angular';
 
 
 @Component({
@@ -16,12 +23,48 @@ export class HomePage {
 
   test: boolean = false;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public actionSheetController: ActionSheetController) {
 
   }
 
   onTest():void {
     this.test = true;
+  }
+
+  showMore(): void {
+    let actionSheet = this.actionSheetController.create({
+      title: 'Einstellungen',
+      buttons: [
+        {
+          text: 'MIDATA Account',
+          role: 'midata_account',
+          handler: () => {
+            this.navCtrl.push(MidataAccountPage);
+          }
+        },{
+          text: 'Mein Profil',
+          role: 'mein_profil',
+          handler: () => {
+            this.navCtrl.push(ProfilPage);
+          }
+        },{
+          text: 'Datenschutz erklärung',
+          role: 'datenschutz_erklaerung',
+          handler: () => {
+            console.log('Go to Datenschutz Erklährung');
+          }
+        },{
+          text: 'Impressum',
+          role: 'impressum',
+          handler: () => {
+            console.log('Go to Impressum');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
+
   }
 
 

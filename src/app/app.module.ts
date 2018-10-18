@@ -11,6 +11,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ReactionPage } from '../pages/reaction/reaction';
 import { CoordinationPage } from '../pages/coordination/coordination';
 import { BalancePage } from '../pages/balance/balance';
+import { MidataAccountPage } from '../pages/midata-account/midata-account';
+import { ProfilPage } from '../pages/profil/profil';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +31,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
     ReactionPage,
     CoordinationPage,
     BalancePage,
+    MidataAccountPage,
+    ProfilPage,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
     ReactionPage,
     CoordinationPage,
     BalancePage,
+    MidataAccountPage,
+    ProfilPage,
   ],
   providers: [
     StatusBar,
