@@ -3,14 +3,25 @@ page-reaction {
         height: 250px;
     }
 
+    div.antiCheatDiv {
+        height: 100%;
+        width: 100%;
+        background: transparent;
+    }
+
     div.playGround {
         height: 100%;
         width: 100%;
+
     }
 
     .tip {
         color: grey;
         font-size: 80%;
+    }
+
+    .fail {
+        color: red;
     }
 
 

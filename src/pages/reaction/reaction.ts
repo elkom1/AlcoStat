@@ -12,7 +12,10 @@ export class ReactionPage {
   // variable for game controll
   isPlayGame: boolean = false;
   isShowStartButton: boolean = true;
+  isShowAntiCheat: boolean = false;
+  hasFailed:boolean = false;
   timeToWait: number;
+  timeoutId: number;
   __nativeST__:any = window.setTimeout
 
   // variable for score
@@ -39,12 +42,15 @@ export class ReactionPage {
   // methods
   startGame():void {
     this.isShowStartButton = false;
+    this.isShowAntiCheat = true;
+    this.hasFailed = false;
     this.getRandomColor();
-    this.timeToWait = Math.random() * 4000;
-    this.setTimeout(this.buildDiv, this.timeToWait);
+    this.timeToWait = 1000 + (Math.random() * 3000);
+    this.timeoutId = this.setTimeout(this.buildDiv, this.timeToWait);
   }
 
   buildDiv():void {
+    this.isShowAntiCheat = false;
     this.isPlayGame = true;
     this.createdTime = new Date();
   }
@@ -68,6 +74,15 @@ export class ReactionPage {
 
   hideScore(): void {
     this.isShowScore = false;
+  }
+
+  failed(): void {
+    window.clearTimeout(this.timeoutId);
+    this.hasFailed = true;
+    this.isShowAntiCheat = false;
+    this.isPlayGame = false;
+    this.isShowStartButton = true;
+    console.log('you have failed')
   }
 
 

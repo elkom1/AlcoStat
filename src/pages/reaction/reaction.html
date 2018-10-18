@@ -13,10 +13,16 @@
 
   <p class="tip" *ngIf="isShowStartButton && !reactionTime">Tab, if screen turn colored</p>
 
-  <div *ngIf="reactionTime && isShowStartButton">
+  <div *ngIf="reactionTime && isShowStartButton && !hasFailed">
     <p class="score">Your Score: {{ reactionTime }} ms</p>
   </div>
 
+  
+  <div *ngIf="hasFailed">
+    <p class="fail">You have failed</p>
+  </div>
+
+  <div class="antiCheatDiv" *ngIf="isShowAntiCheat" (click)="failed()"></div>
   <div class="playGround" *ngIf="isPlayGame" [style.background]="color" (click)="stopTime()"></div>
 
   <ion-fab bottom right>
