@@ -27,6 +27,12 @@ export class HomePage {
 
   }
 
+    // methods
+    addDrink(drink: number):void {
+      
+    }
+
+
   onTest():void {
     this.test = true;
   }
