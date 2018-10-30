@@ -21,20 +21,18 @@
       <div class="drinkImage" (click)="addDrink(3)"><img src="../../assets/imgs/shot.png" alt="" height="50"></div>
     </div>
 
-    <p *ngIf="test">TEST</p>
+    <div *ngIf="isAddingDrink">
+        <div class="drinkImage" (click)="addDrink(0)"><img [src]="imageSource" alt="" height="50"></div>  
 
- 
-
-
-    <div class="addButtonContainer">
-      <button ion-button round icon-start>
-        <ion-icon name="md-checkmark-circle"></ion-icon>
-        Hinzufügen
-      </button>
+        <div class="addButtonContainer">
+            <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">
+              <ion-icon name="md-checkmark-circle"></ion-icon>
+              Hinzufügen
+            </button>
+          </div> 
     </div>
 
-
-
+    
 
 
   </div>

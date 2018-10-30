@@ -21,7 +21,15 @@ export class HomePage {
   // for sliding
   @ViewChild(Slides) slides: Slides;
 
-  test: boolean = false;
+  isAddingDrink: boolean = false;
+
+  drinksArr:string[] = ["bier.png", "wein.png", "drink.png", "shot.png"];
+
+  imageSourceTemplate:string = "../../assets/imgs/";
+  imageSource:string;
+
+  
+
 
   constructor(public navCtrl: NavController, public actionSheetController: ActionSheetController) {
 
@@ -29,13 +37,12 @@ export class HomePage {
 
     // methods
     addDrink(drink: number):void {
-      
+      this.imageSource = this.imageSourceTemplate.concat(this.drinksArr[drink]);
+      this.isAddingDrink = true;
+     console.log(this.imageSource);
     }
 
 
-  onTest():void {
-    this.test = true;
-  }
 
   showMore(): void {
     let actionSheet = this.actionSheetController.create({
@@ -68,12 +75,8 @@ export class HomePage {
         }
       ]
     });
-
     actionSheet.present();
-
   }
-
-
 
   /*
   swipe function
