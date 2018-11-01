@@ -21,8 +21,15 @@
       <div class="drinkImage" (click)="addDrink(3)"><img src="../../assets/imgs/shot.png" alt="" height="50"></div>
     </div>
 
-    <div *ngIf="isAddingDrink">
-        <div class="drinkImage" (click)="addDrink(0)"><img [src]="imageSource" alt="" height="50"></div>  
+    <div *ngIf="isAddingDrink" text-center >
+        <div class="drinkImage" padding-top>
+          <!--Grid-->
+
+          <img [src]="imageSource" alt="" height="30%" width="30%">
+          <button ion-button (click)="reduceVolume()">
+            <ion-icon name="md-arrow-dropleft"></ion-icon></button>
+          <ion-label class="volume-label">{{ drinksArr[selectedDrink].volume[selectedVolume] }}</ion-label>
+        </div>
 
         <div class="addButtonContainer">
             <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">

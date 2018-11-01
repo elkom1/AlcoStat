@@ -22,8 +22,16 @@ export class HomePage {
   @ViewChild(Slides) slides: Slides;
 
   isAddingDrink: boolean = false;
+  selectedDrink: number = null;
+  selectedVolume: number = 1;
+  drinksArr:any = [
+    {img: "bier.png", volume: ["2.5dl", "3.3dl", "5dl"]},
+    {img: "wein.png", volume: ["1dl", "2dl", "3dl"]},
+    {img: "drink.png", volume: ["2cl", "4cl", "6cl"]},
+    {img: "shot.png", volume: ["1cl", "2cl", "3cl"]}
+  ];
 
-  drinksArr:string[] = ["bier.png", "wein.png", "drink.png", "shot.png"];
+
 
   imageSourceTemplate:string = "../../assets/imgs/";
   imageSource:string;
@@ -37,9 +45,18 @@ export class HomePage {
 
     // methods
     addDrink(drink: number):void {
-      this.imageSource = this.imageSourceTemplate.concat(this.drinksArr[drink]);
+      this.selectedDrink = drink;
+      this.selectedVolume = 1;
+      this.imageSource = this.imageSourceTemplate.concat(this.drinksArr[drink].img);
       this.isAddingDrink = true;
      console.log(this.imageSource);
+    }
+
+    reduceVolume(): void {
+      if(this.selectedVolume > 0) {
+        this.selectedVolume--
+      }
+      
     }
 
 
