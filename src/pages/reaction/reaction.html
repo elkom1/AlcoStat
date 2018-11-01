@@ -9,17 +9,17 @@
 
 <ion-content padding>
   <button ion-button block outline *ngIf="isShowStartButton" (click)="startGame()">
-    Let's test your reaction</button>
+    Teste deine Reaktion</button>
 
-  <p class="tip" *ngIf="isShowStartButton && !reactionTime">Tab, if screen turn colored</p>
+  <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Berühr den Bildschirm, sobal dieser farbig wird</p>
 
   <div *ngIf="reactionTime && isShowStartButton && !hasFailed">
-    <p class="score">Your Score: {{ reactionTime }} ms</p>
+    <p class="score">Dein Score: {{ reactionTime }} ms</p>
   </div>
 
   
   <div *ngIf="hasFailed">
-    <p class="fail">You have failed</p>
+    <p class="fail">FAIL</p>
   </div>
 
   <div class="antiCheatDiv" *ngIf="isShowAntiCheat" (click)="failed()"></div>
