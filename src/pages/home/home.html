@@ -21,25 +21,44 @@
       <div class="drinkImage" (click)="addDrink(3)"><img src="../../assets/imgs/shot.png" alt="" height="50"></div>
     </div>
 
-    <div *ngIf="isAddingDrink" text-center >
-        <div class="drinkImage" padding-top>
-          <!--Grid-->
+    <div *ngIf="isAddingDrink" text-center>
+      <div class="drinkImage" padding-top>
+        <!--Grid-->
+        <ion-grid>
+          <ion-row align-items-center>
+            <div class="col-container">
+              <ion-col class="col">
+                <button ion-button icon-only clear large (click)="reduceVolume()">
+                  <ion-icon name="ios-arrow-dropleft-outline"></ion-icon>
+                </button>
+              </ion-col>
+            </div>
 
-          <img [src]="imageSource" alt="" height="30%" width="30%">
-          <button ion-button (click)="reduceVolume()">
-            <ion-icon name="md-arrow-dropleft"></ion-icon></button>
-          <ion-label class="volume-label">{{ drinksArr[selectedDrink].volume[selectedVolume] }}</ion-label>
-        </div>
+            <ion-col>
+              <img [src]="imageSource" alt="">
+              <ion-label class="volume-label">
+                {{ drinksArr[selectedDrink].volume[selectedVolume] }}
+              </ion-label>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-only clear large (click)="increaseVolume()">
+                <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
-        <div class="addButtonContainer">
-            <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">
-              <ion-icon name="md-checkmark-circle"></ion-icon>
-              Hinzufügen
-            </button>
-          </div> 
+      </div>
+
+      <div class="addButtonContainer">
+        <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">
+          <ion-icon name="md-checkmark-circle"></ion-icon>
+          Hinzufügen
+        </button>
+      </div>
     </div>
 
-    
+
 
 
   </div>
