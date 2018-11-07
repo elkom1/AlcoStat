@@ -23,13 +23,14 @@ export class HomePage {
 
   isAddingDrink: boolean;
   selectedDrink: number;
+  percentageOfAlcOfDrink: number;
   selectedVolume: number;
   numberOfDrink: number;
   drinksArr: any = [
-    { img: "bier.png", volume: ["2.5dl", "3.3dl", "5dl"], percentageOfAlk: 5, alkSteps: 0.5 },
-    { img: "wein.png", volume: ["1dl", "2dl", "3dl"], percentageOfAlk: 12, alkSteps: 0.5 },
-    { img: "drink.png", volume: ["2cl", "4cl", "6cl"], percentageOfAlk: 40, alkSteps: 5 },
-    { img: "shot.png", volume: ["1cl", "2cl", "3cl"], percentageOfAlk: 40, alkSteps: 5 }
+    { img: "bier.png", volume: ["2.5dl", "3.3dl", "5dl"], percentageOfAlc: 5, alkSteps: 0.5 },
+    { img: "wein.png", volume: ["1dl", "2dl", "3dl"], percentageOfAlc: 12, alkSteps: 0.5 },
+    { img: "drink.png", volume: ["2cl", "4cl", "6cl"], percentageOfAlc: 40, alkSteps: 5 },
+    { img: "shot.png", volume: ["1cl", "2cl", "3cl"], percentageOfAlc: 40, alkSteps: 5 }
   ];
 
 
@@ -45,6 +46,7 @@ export class HomePage {
     this.selectedDrink = 0;
     this.selectedVolume = 1;
     this.numberOfDrink = 1;
+    this.percentageOfAlcOfDrink = this.drinksArr[this.selectedDrink].percentageOfAlc;
   }
 
   // methods
@@ -52,10 +54,11 @@ export class HomePage {
     this.selectedDrink = drink;
     this.selectedVolume = 1;
     this.imageSource = this.imageSourceTemplate.concat(this.drinksArr[drink].img);
+    this.percentageOfAlcOfDrink = this.drinksArr[this.selectedDrink].percentageOfAlc;
     this.isAddingDrink = true;
-    console.log(this.imageSource);
   }
 
+  // changing Volume
   reduceVolume(): void {
     if (this.selectedVolume > 0) {
       this.selectedVolume--;
@@ -68,8 +71,35 @@ export class HomePage {
     }
   }
 
+  // changing number of drinks
+  reduceNumberOfDrinks(): void {
+    if(this.numberOfDrink > 0) {
+      this.numberOfDrink--;
+    }
+  }
+
+  increaseNumberOfDrinks(): void {
+    if(this.numberOfDrink < 10) {
+      this.numberOfDrink++;
+    }
+  }
+
+  // changing percentage of alcohol
+  reducePercentageOfAlc():void {
+    if(this.percentageOfAlcOfDrink > 2 * this.drinksArr[this.selectedDrink].alkSteps) {
+      this.percentageOfAlcOfDrink -= this.drinksArr[this.selectedDrink].alkSteps;
+    }   
+  }
+
+  increasePercentageOfAlc():void {
+    if(this.percentageOfAlcOfDrink < 20 * this.drinksArr[this.selectedDrink].alkSteps) {
+      this.percentageOfAlcOfDrink += this.drinksArr[this.selectedDrink].alkSteps
+    }
+  }
 
 
+
+// function for show settings
   showMore(): void {
     let actionSheet = this.actionSheetController.create({
       title: 'Einstellungen',

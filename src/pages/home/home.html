@@ -26,30 +26,59 @@
         <!--Grid-->
         <ion-grid>
           <ion-row align-items-center>
-            <div class="col-container">
-              <ion-col class="col">
-                <button ion-button icon-only clear large (click)="reduceVolume()">
-                  <ion-icon name="ios-arrow-dropleft-outline"></ion-icon>
-                </button>
-              </ion-col>
-            </div>
-
             <ion-col>
+              <button ion-button icon-only clear large (click)="reduceVolume()">
+                <ion-icon name="ios-arrow-dropleft-outline"></ion-icon>
+              </button>
+            </ion-col>
+
+            <ion-col class="col-container">
               <img [src]="imageSource" alt="">
               <ion-label class="volume-label">
                 {{ drinksArr[selectedDrink].volume[selectedVolume] }}
               </ion-label>
             </ion-col>
-            <ion-col>
+
+            <ion-col class="col-container">
               <button ion-button icon-only clear large (click)="increaseVolume()">
                 <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
               </button>
             </ion-col>
           </ion-row>
+
+
+          <!--
           <ion-row>
             <ion-col>
-              {{ numberOfDrink }}
+              <button ion-button icon-only clear small>
+                <ion-icon name="ios-arrow-up-outline"></ion-icon>
+              </button>
             </ion-col>
+           
+            <ion-col></ion-col>
+
+            <ion-col>
+              <button ion-button icon-only clear small>
+                <ion-icon name="ios-arrow-up-outline"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+          -->
+
+
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-only clear small (click)="increaseNumberOfDrinks()">
+                <ion-icon name="ios-arrow-up-outline"></ion-icon>
+              </button>
+              <ion-label>
+                {{ numberOfDrink }}
+              </ion-label>
+              <button ion-button icon-only clear small (click)="reduceNumberOfDrinks()">
+                  <ion-icon name="ios-arrow-down-outline"></ion-icon>
+                </button>
+            </ion-col>
+
             <ion-col>
               <div class="addButtonContainer">
                 <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">
@@ -58,10 +87,18 @@
                 </button>
               </div>
             </ion-col>
+
             <ion-col>
+                <button ion-button icon-only clear small (click)="increasePercentageOfAlc()">
+                    <ion-icon name="ios-arrow-up-outline"></ion-icon>
+                  </button>
               <ion-label>
-                  {{drinksArr[selectedDrink].percentageOfAlk }} %
+                {{ percentageOfAlcOfDrink }} %
               </ion-label>
+
+              <button ion-button icon-only clear small (click)="reducePercentageOfAlc()">
+                  <ion-icon name="ios-arrow-down-outline"></ion-icon>
+                </button>
             </ion-col>
           </ion-row>
         </ion-grid>
