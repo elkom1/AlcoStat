@@ -46,16 +46,28 @@
               </button>
             </ion-col>
           </ion-row>
+          <ion-row>
+            <ion-col>
+              {{ numberOfDrink }}
+            </ion-col>
+            <ion-col>
+              <div class="addButtonContainer">
+                <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">
+                  <ion-icon name="md-checkmark-circle"></ion-icon>
+                  Hinzufügen
+                </button>
+              </div>
+            </ion-col>
+            <ion-col>
+              <ion-label>
+                  {{drinksArr[selectedDrink].percentageOfAlk }} %
+              </ion-label>
+            </ion-col>
+          </ion-row>
         </ion-grid>
-
       </div>
 
-      <div class="addButtonContainer">
-        <button ion-button round icon-start (click)="isAddingDrink = !isAddingDrink">
-          <ion-icon name="md-checkmark-circle"></ion-icon>
-          Hinzufügen
-        </button>
-      </div>
+
     </div>
 
 

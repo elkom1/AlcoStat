@@ -24,11 +24,12 @@ export class HomePage {
   isAddingDrink: boolean;
   selectedDrink: number;
   selectedVolume: number;
+  numberOfDrink: number;
   drinksArr: any = [
-    { img: "bier.png", volume: ["2.5dl", "3.3dl", "5dl"] },
-    { img: "wein.png", volume: ["1dl", "2dl", "3dl"] },
-    { img: "drink.png", volume: ["2cl", "4cl", "6cl"] },
-    { img: "shot.png", volume: ["1cl", "2cl", "3cl"] }
+    { img: "bier.png", volume: ["2.5dl", "3.3dl", "5dl"], percentageOfAlk: 5, alkSteps: 0.5 },
+    { img: "wein.png", volume: ["1dl", "2dl", "3dl"], percentageOfAlk: 12, alkSteps: 0.5 },
+    { img: "drink.png", volume: ["2cl", "4cl", "6cl"], percentageOfAlk: 40, alkSteps: 5 },
+    { img: "shot.png", volume: ["1cl", "2cl", "3cl"], percentageOfAlk: 40, alkSteps: 5 }
   ];
 
 
@@ -43,6 +44,7 @@ export class HomePage {
     this.isAddingDrink = false;
     this.selectedDrink = 0;
     this.selectedVolume = 1;
+    this.numberOfDrink = 1;
   }
 
   // methods
