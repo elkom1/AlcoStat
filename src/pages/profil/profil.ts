@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
+import { UserProfil } from '../../providers/userProfil';
+
+
+
 
 /**
  * Generated class for the ProfilPage page.
@@ -14,14 +19,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profil.html',
 })
 export class ProfilPage {
-  weight: number = 80;
-  sex: boolean = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  userProfil: UserProfil = {
+    weight: null,
+    sex: null,
+  }
+  
+  constructor(public navCtrl: NavController,
+    public localDatabase: LocalDatabaseProvider ,
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilPage');
+  }
+
+
+  saveUserProfil():void {
+    this.localDatabase.setUserProfil(this.userProfil);
   }
 
 }
