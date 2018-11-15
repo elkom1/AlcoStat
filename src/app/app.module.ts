@@ -22,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { LocalDatabaseProvider } from '../providers/local-database/local-database';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { IonicStorageModule } from '@ionic/storage';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     // add plugin to providers
     NativePageTransitions,
+    LocalDatabaseProvider,
   ]
 })
 export class AppModule { }
