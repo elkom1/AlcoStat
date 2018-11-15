@@ -7,12 +7,37 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profil</ion-title>
+    <ion-title>Profil</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list radio-group [(ngModel)]="sex">
+    <ion-title>Dein Geschlecht</ion-title>
+    <ion-item>
+      <ion-label>weiblich</ion-label>
+      <ion-radio value="true"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>männlich</ion-label>
+      <ion-radio value="false"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-title>
+    Dein Gewicht
+  </ion-title>
+  <ion-item>
+    <ion-range min="40" max="150" step="2" [(ngModel)]="weight" pin="true">
+      <ion-icon small range-left name="sunny"></ion-icon>
+      <ion-icon range-right name="sunny"></ion-icon>
+    </ion-range>
+  </ion-item>
+  <ion-label>Gewicht: {{ weight }} kg</ion-label>
+
 
 </ion-content>

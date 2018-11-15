@@ -21,6 +21,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // import plugins
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -36,7 +38,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

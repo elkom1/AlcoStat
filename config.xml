@@ -84,4 +84,5 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-sqlite-storage" spec="^2.5.1" />
 </widget>

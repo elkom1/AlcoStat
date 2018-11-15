@@ -14,6 +14,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profil.html',
 })
 export class ProfilPage {
+  weight: number = 80;
+  sex: boolean = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
