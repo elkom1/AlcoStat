@@ -3,15 +3,17 @@ page-home {
         display: flex;
     }
     .drinkImage {
-       
+        
         display:inline-block;
         height: 40;
         width: 100%;
+        
         
         border-width:2px;
         border-style:solid;
         border-color:white;
     }
+
 
     .addButtonContainer {
         display: table;

@@ -20,7 +20,7 @@ import { UserProfil } from '../../providers/userProfil';
 })
 export class ProfilPage {
 
-  userProfil: UserProfil = {
+  userProfil: UserProfil  = {
     weight: null,
     sex: null,
   }
@@ -30,13 +30,32 @@ export class ProfilPage {
     public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilPage');
+  ionViewWillEnter(): void {
+    this.localDatabase.getUserProfil().then((val) => {
+      // profil not set yet
+      if(val == null) {
+        this.userProfil  = {
+          weight: null,
+          sex: null,
+        }
+      } else { // prifil is set already
+        this.userProfil = val;
+      }
+    })
   }
 
 
   saveUserProfil():void {
+    console.log("saveUserProfil")
     this.localDatabase.setUserProfil(this.userProfil);
+    this.navCtrl.pop();
+  }
+
+
+  // tester Mehtode
+  clearPegel(): void {
+    this.localDatabase.setBac(0);
+    this.navCtrl.pop();
   }
 
 }

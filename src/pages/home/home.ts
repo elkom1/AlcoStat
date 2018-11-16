@@ -12,6 +12,10 @@ import { Slides } from 'ionic-angular';
 // import for more-button
 import { ActionSheetController } from 'ionic-angular';
 
+// Provider
+import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
+import { UserProfil } from '../../providers/userProfil';
+
 
 @Component({
   selector: 'page-home',
@@ -21,85 +25,144 @@ export class HomePage {
   // for sliding
   @ViewChild(Slides) slides: Slides;
 
+  bac: number = null;
+
+  userConsumation: any = {
+    drinkIndex: null,
+    volumeIndex: null,
+    percentageOfAlc: null,
+    volume: null,
+    numberOfDrink: null,
+  }
+
   isAddingDrink: boolean;
   selectedDrink: number;
   percentageOfAlcOfDrink: number;
   selectedVolume: number;
   numberOfDrink: number;
   drinksArr: any = [
-    { img: "bier.png", volume: ["2.5dl", "3.3dl", "5dl"], percentageOfAlc: 5, alkSteps: 0.5 },
-    { img: "wein.png", volume: ["1dl", "2dl", "3dl"], percentageOfAlc: 12, alkSteps: 0.5 },
-    { img: "drink.png", volume: ["2cl", "4cl", "6cl"], percentageOfAlc: 40, alkSteps: 5 },
-    { img: "shot.png", volume: ["1cl", "2cl", "3cl"], percentageOfAlc: 40, alkSteps: 5 }
+    { img: "bier.png", volume: [250, 330, 500], percentageOfAlc: 5, alkSteps: 0.5 },
+    { img: "wein.png", volume: [100, 200, 300], percentageOfAlc: 12, alkSteps: 0.5 },
+    { img: "drink.png", volume: [20, 40, 60], percentageOfAlc: 40, alkSteps: 5 },
+    { img: "shot.png", volume: [10, 20, 30], percentageOfAlc: 40, alkSteps: 5 }
   ];
 
 
   imageSourceTemplate: string = "../../assets/imgs/";
   imageSource: string;
 
-  constructor(public navCtrl: NavController, public actionSheetController: ActionSheetController) {
+  constructor(public navCtrl: NavController,
+    public localStorage: LocalDatabaseProvider,
+    public actionSheetController: ActionSheetController) {
 
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.isAddingDrink = false;
-    this.selectedDrink = 0;
-    this.selectedVolume = 1;
-    this.numberOfDrink = 1;
-    this.percentageOfAlcOfDrink = this.drinksArr[this.selectedDrink].percentageOfAlc;
+    this.localStorage.getBac().then((val) => {
+      if(val != null) {
+        this.bac = val;
+      }
+    });
   }
 
   // methods
   addDrink(drink: number): void {
-    this.selectedDrink = drink;
-    this.selectedVolume = 1;
+    this.userConsumation.drinkIndex = drink;
+    this.userConsumation.volumeIndex = 1;
+    this.userConsumation.percentageOfAlc = this.drinksArr[this.userConsumation.drinkIndex].percentageOfAlc;
+    this.userConsumation.volume = this.drinksArr[this.userConsumation.drinkIndex].volume[this.userConsumation.volumeIndex];
+    this.userConsumation.numberOfDrink = 1;
+    // binding image
     this.imageSource = this.imageSourceTemplate.concat(this.drinksArr[drink].img);
-    this.percentageOfAlcOfDrink = this.drinksArr[this.selectedDrink].percentageOfAlc;
+
+    //this.selectedDrink = drink;
+    //this.selectedVolume = 1;
     this.isAddingDrink = true;
+  }
+
+  saveDrink(): void {
+    this.localStorage.getUserProfil().then((val) => {
+      if (val.sex == null || val.weight == null) {
+        this.navCtrl.push(ProfilPage);
+      } else {
+
+        this.calculateBac(val).then((bac) => {
+          this.localStorage.getBac().then((val) => {
+            if(val == null) {
+              this.bac = bac;
+            } else {
+              this.bac = bac + val;
+            }
+            this.localStorage.setBac(this.bac);
+            this.isAddingDrink = false;   
+          });
+        });
+      }
+    });
+  }
+
+  async calculateBac(data: UserProfil): Promise<number> {
+    let numOfDrink = this.userConsumation.numberOfDrink;
+    let volume = this.userConsumation.volume;
+    let alcVol = this.userConsumation.percentageOfAlc;
+    let alcInGram = volume * (alcVol / 100) * 0.8;
+
+    // sex == true --> weiblich
+    if (data.sex) {
+      return ((numOfDrink * alcInGram) / (data.weight * 0.55));
+
+    } else { // männlich
+      return ((numOfDrink * alcInGram) / (data.weight * 0.68));
+    }
+
+
   }
 
   // changing Volume
   reduceVolume(): void {
-    if (this.selectedVolume > 0) {
-      this.selectedVolume--;
+    if (this.userConsumation.volumeIndex > 0) {
+      this.userConsumation.volumeIndex--;
+      this.userConsumation.volume = this.drinksArr[this.userConsumation.drinkIndex].volume[this.userConsumation.volumeIndex];
     }
   }
 
   increaseVolume(): void {
-    if (this.selectedVolume < 2) {
-      this.selectedVolume++;
+    if (this.userConsumation.volumeIndex < 2) {
+      this.userConsumation.volumeIndex++;
+      this.userConsumation.volume = this.drinksArr[this.userConsumation.drinkIndex].volume[this.userConsumation.volumeIndex];
     }
   }
 
   // changing number of drinks
   reduceNumberOfDrinks(): void {
-    if(this.numberOfDrink > 0) {
-      this.numberOfDrink--;
+    if (this.userConsumation.numberOfDrink > 0) {
+      this.userConsumation.numberOfDrink--;
     }
   }
 
   increaseNumberOfDrinks(): void {
-    if(this.numberOfDrink < 10) {
-      this.numberOfDrink++;
+    if (this.userConsumation.numberOfDrink < 10) {
+      this.userConsumation.numberOfDrink++;
     }
   }
 
   // changing percentage of alcohol
-  reducePercentageOfAlc():void {
-    if(this.percentageOfAlcOfDrink > 2 * this.drinksArr[this.selectedDrink].alkSteps) {
-      this.percentageOfAlcOfDrink -= this.drinksArr[this.selectedDrink].alkSteps;
-    }   
+  reducePercentageOfAlc(): void {
+    if (this.userConsumation.percentageOfAlc > 2 * this.drinksArr[this.userConsumation.drinkIndex].alkSteps) {
+      this.userConsumation.percentageOfAlc -= this.drinksArr[this.userConsumation.drinkIndex].alkSteps;
+    }
   }
 
-  increasePercentageOfAlc():void {
-    if(this.percentageOfAlcOfDrink < 20 * this.drinksArr[this.selectedDrink].alkSteps) {
-      this.percentageOfAlcOfDrink += this.drinksArr[this.selectedDrink].alkSteps
+  increasePercentageOfAlc(): void {
+    if (this.userConsumation.percentageOfAlc < 30 * this.drinksArr[this.userConsumation.drinkIndex].alkSteps) {
+      this.userConsumation.percentageOfAlc += this.drinksArr[this.userConsumation.drinkIndex].alkSteps;
     }
   }
 
 
 
-// function for show settings
+  // function for show settings
   showMore(): void {
     let actionSheet = this.actionSheetController.create({
       title: 'Einstellungen',

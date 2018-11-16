@@ -13,6 +13,7 @@ import { UserProfil } from '../userProfil';
 @Injectable()
 export class LocalDatabaseProvider {
   userProfil_key: string = 'userProfil';
+  bac_key: string = 'bac';
 
   constructor(public localStorage: Storage) {
     console.log('Hello LocalDatabaseProvider Provider');
@@ -24,6 +25,14 @@ export class LocalDatabaseProvider {
 
   getUserProfil(): Promise<UserProfil> {
     return this.localStorage.get(this.userProfil_key);
+  }
+
+  setBac(bac: number) {
+    this.localStorage.set(this.bac_key, bac);
+  }
+
+  getBac(): Promise<number> {
+    return this.localStorage.get(this.bac_key);
   }
 
 

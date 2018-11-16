@@ -14,7 +14,14 @@
 
 
 <ion-content padding>
-  <ion-list radio-group [(ngModel)]="sex">
+  <ion-label text-wrap>
+    Damit dein Promille-Wert geschätzt werden kann, brauchen wir dein Geschlecht sowie dein Gewicht.
+  </ion-label>
+  <button ion-button icon-only round outline small>
+    <ion-icon  name="md-information">
+    </ion-icon>
+  </button>
+  <ion-list radio-group [(ngModel)]="userProfil.sex">
     <ion-title>Dein Geschlecht</ion-title>
     <ion-item>
       <ion-label>weiblich</ion-label>
@@ -32,14 +39,15 @@
     Dein Gewicht
   </ion-title>
   <ion-item>
-    <ion-range min="40" max="150" step="2" [(ngModel)]="weight" pin="true">
+    <ion-range min="40" max="120" step="2" [(ngModel)]="userProfil.weight" pin="true">
       <ion-icon small range-left name="sunny"></ion-icon>
       <ion-icon range-right name="sunny"></ion-icon>
     </ion-range>
   </ion-item>
-  <ion-label>Gewicht: {{ weight }} kg</ion-label>
+  <ion-label>Gewicht: {{ userProfil.weight }} kg</ion-label>
 
   <button ion-button (click)="saveUserProfil()">Speichern</button>
+  <button ion-button outline (click)="clearPegel()">set Pegel zu 0</button>
 
 
 </ion-content>
