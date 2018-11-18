@@ -15,6 +15,7 @@ import { ActionSheetController } from 'ionic-angular';
 // Provider
 import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
 import { UserProfil } from '../../providers/userProfil';
+import { Bac } from '../../providers/bac';
 
 
 @Component({
@@ -25,7 +26,12 @@ export class HomePage {
   // for sliding
   @ViewChild(Slides) slides: Slides;
 
-  bac: number = null;
+  bac: Bac = {
+    value: null,
+    time: null,
+  }
+
+  intervalID: number = 0;
 
   userConsumation: any = {
     drinkIndex: null,
@@ -57,16 +63,58 @@ export class HomePage {
 
   }
 
-  ionViewWillEnter() {
-    this.isAddingDrink = false;
-    this.localStorage.getBac().then((val) => {
-      if(val != null) {
-        this.bac = val;
-      }
-    });
+  // TESTER
+  callUpdateBac(): void {
+    this.updateBac(0);
   }
 
-  // methods
+  ionViewWillEnter() {
+    this.isAddingDrink = false;
+    
+    this.localStorage.getBac().then((bac) => {
+      if(bac == null ) {
+        this.bac.value = 0;
+        this.bac.time = new Date();
+        this.localStorage.setBac(this.bac);
+      } else {
+        this.bac = bac;
+        console.log(bac);
+      }
+    })
+    
+  }
+
+  async updateBac(bacToAdd: number):Promise<any> {
+    this.localStorage.getBac().then((val) => {
+      if (val.value != null && val.time != null) {
+        let date: Date = new Date();
+        let passedTime = date.getTime() - val.time.getTime();
+        this.bac.time = date;
+
+        // WARNING
+        // it is calculating with Minutes and not with houers
+        // for Presentation Purpose only
+        let timeToReduceBac: number = 60000; // --> 1 Minute instead of 1 houer
+        this.bac.value = this.bac.value - (0.1 * (passedTime / timeToReduceBac));
+        if(this.bac.value < 0 ) {
+          this.bac.value = 0;
+        }
+
+        // when a drink was added, bacToAdd needs to add to the bac
+        this.bac.value += bacToAdd;
+
+        this.localStorage.setBac(this.bac);
+      } else {
+        this.bac.value = bacToAdd;
+        this.bac.time = new Date();
+        this.localStorage.setBac(this.bac);
+      }
+    });
+
+  }
+
+  //// METHODS FOR DRINK ////
+  // Adding Drink
   addDrink(drink: number): void {
     this.userConsumation.drinkIndex = drink;
     this.userConsumation.volumeIndex = 1;
@@ -81,28 +129,41 @@ export class HomePage {
     this.isAddingDrink = true;
   }
 
+
   saveDrink(): void {
     this.localStorage.getUserProfil().then((val) => {
-      if (val.sex == null || val.weight == null) {
+      if (val == null) {
         this.navCtrl.push(ProfilPage);
       } else {
 
-        this.calculateBac(val).then((bac) => {
-          this.localStorage.getBac().then((val) => {
-            if(val == null) {
-              this.bac = bac;
+        this.calculateBacValue(val).then((bacToAdd) => {
+
+          this.updateBac(bacToAdd);
+
+          /*
+          this.localStorage.getBac().then((oldBac) => {
+            
+            if (val == null) {
+              this.bac.value = bacToAdd;
+              
+              this.bac.time = new Date();
             } else {
               this.bac = bac + val;
             }
             this.localStorage.setBac(this.bac);
-            this.isAddingDrink = false;   
+            this.isAddingDrink = false;         
+
           });
+          */
+
+         this.isAddingDrink = false;
+
         });
       }
     });
   }
 
-  async calculateBac(data: UserProfil): Promise<number> {
+  async calculateBacValue(data: UserProfil): Promise<number> {
     let numOfDrink = this.userConsumation.numberOfDrink;
     let volume = this.userConsumation.volume;
     let alcVol = this.userConsumation.percentageOfAlc;
@@ -115,9 +176,9 @@ export class HomePage {
     } else { // männlich
       return ((numOfDrink * alcInGram) / (data.weight * 0.68));
     }
-
-
   }
+
+
 
   // changing Volume
   reduceVolume(): void {

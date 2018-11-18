@@ -54,7 +54,11 @@ export class ProfilPage {
 
   // tester Mehtode
   clearPegel(): void {
-    this.localDatabase.setBac(0);
+    let bac = {
+      value: 0,
+      time: new Date(),
+    }
+    this.localDatabase.setBac(bac);
     this.navCtrl.pop();
   }
 

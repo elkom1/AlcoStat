@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Storage } from '@ionic/storage';
 import { UserProfil } from '../userProfil';
+import { Bac } from '../bac';
 
 /*
   Generated class for the LocalDatabaseProvider provider.
@@ -27,11 +28,11 @@ export class LocalDatabaseProvider {
     return this.localStorage.get(this.userProfil_key);
   }
 
-  setBac(bac: number) {
+  setBac(bac: Bac) {
     this.localStorage.set(this.bac_key, bac);
   }
 
-  getBac(): Promise<number> {
+  getBac(): Promise<Bac> {
     return this.localStorage.get(this.bac_key);
   }
 
