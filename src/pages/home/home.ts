@@ -26,6 +26,8 @@ export class HomePage {
   // for sliding
   @ViewChild(Slides) slides: Slides;
 
+  test:any = "noEnter";
+
   bac: Bac = {
     value: null,
     time: null,
@@ -73,12 +75,21 @@ export class HomePage {
     
     this.localStorage.getBac().then((bac) => {
       if(bac == null ) {
+        
+       console.log("bac is null")
+        
         this.bac.value = 0;
         this.bac.time = new Date();
         this.localStorage.setBac(this.bac);
+
+
+
+        
       } else {
+        console.log("bac is: " + bac.value + "time: " + bac.time + "type: " + typeof(bac.time) ) 
+
         this.bac = bac;
-        console.log(bac);
+       
       }
     })
     
@@ -86,11 +97,19 @@ export class HomePage {
 
   async updateBac(bacToAdd: number):Promise<any> {
     this.localStorage.getBac().then((val) => {
-      if (val.value != null && val.time != null) {
-        let date: Date = new Date();
-        let passedTime = date.getTime() - val.time.getTime();
-        this.bac.time = date;
+        let newDate: Date = new Date();
+        let newDateInMilisec: number = newDate.getTime();
 
+        // important
+        // val.time is a string on the device, because of that
+        // it's need to be integratet in a new Date()
+        let oldDate: Date = new Date(val.time);
+        console.log(typeof(oldDate));
+        let oldDateInMilisec = oldDate.getTime();
+        let passedTime = newDateInMilisec - oldDateInMilisec;
+
+        this.bac.time = newDate;
+    
         // WARNING
         // it is calculating with Minutes and not with houers
         // for Presentation Purpose only
@@ -102,15 +121,8 @@ export class HomePage {
 
         // when a drink was added, bacToAdd needs to add to the bac
         this.bac.value += bacToAdd;
-
         this.localStorage.setBac(this.bac);
-      } else {
-        this.bac.value = bacToAdd;
-        this.bac.time = new Date();
-        this.localStorage.setBac(this.bac);
-      }
     });
-
   }
 
   //// METHODS FOR DRINK ////
@@ -135,7 +147,7 @@ export class HomePage {
       if (val == null) {
         this.navCtrl.push(ProfilPage);
       } else {
-
+      
         this.calculateBacValue(val).then((bacToAdd) => {
 
           this.updateBac(bacToAdd);
