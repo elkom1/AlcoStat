@@ -15,11 +15,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class StatisticPage {
 
+  isShowTable: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StatisticPage');
+  }
+
+  changeView():void {
+    this.isShowTable = !this.isShowTable
   }
 
   swipe(event) {

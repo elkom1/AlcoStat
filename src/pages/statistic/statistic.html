@@ -7,6 +7,22 @@
 <ion-content padding>
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
-    <h2>Statistic Page</h2>
+
+    <div *ngIf="!isShowTable">
+      <img src="../../assets/imgs/statistic.png" alt="">
+    </div>
+
+    <div *ngIf="isShowTable">
+        <img src="../../assets/imgs/statisticTable.png" alt="">
+      </div>
+    
+    <ion-fab bottom center>
+      <button ion-fab (click)="changeView()">
+        <ion-icon name="ios-switch-outline"></ion-icon>
+      </button>
+    </ion-fab>
+
+
+
   </div>
 </ion-content>
