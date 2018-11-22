@@ -6,6 +6,7 @@ import { Network } from "@ionic-native/network";
 import {NativeStorage} from '@ionic-native/native-storage';
 import { TokenRefreshResponse, TokenResponse} from "midata/dist/src/api";
 import {Promise} from 'es6-promise';
+import { AuthAndPatResponse } from 'Midata/dist/src/Midata';
 
 @Injectable()
 export class MidataService {
@@ -282,8 +283,13 @@ export class MidataService {
         .then(() => {
         return this.midata.authenticate();
         })
-        .then((rsp: TokenResponse) => {
-        return this.setSecureStorageToken(rsp.refresh_token);
+        .then((rsp : AuthAndPatResponse) => {
+        //we can now acces the token response with
+        let tokenResponse = rsp.authResponse;
+        
+        //and access the patient resource of the logged in user
+        let patientResource = rsp.patientResource;
+        return this.setSecureStorageToken(tokenResponse.refresh_token);
         })
         .then(() => {
         this.syncResourceMap().catch(() => {
