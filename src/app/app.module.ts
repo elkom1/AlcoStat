@@ -2,6 +2,13 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import {NativeStorage} from '@ionic-native/native-storage';
+import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
+import { Network } from '@ionic-native/network';
+import { InAppBrowser } from "@ionic-native/in-app-browser";
+
+// Additional service for midata
+import { MidataService} from "../services/midataService";
 
 // import pages
 import { StatisticPage } from '../pages/statistic/statistic';
@@ -13,6 +20,7 @@ import { CoordinationPage } from '../pages/coordination/coordination';
 import { BalancePage } from '../pages/balance/balance';
 import { MidataAccountPage } from '../pages/midata-account/midata-account';
 import { ProfilPage } from '../pages/profil/profil';
+import { LoginPage } from "../pages/login/login";
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -36,6 +44,7 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     BalancePage,
     MidataAccountPage,
     ProfilPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -54,6 +63,7 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     BalancePage,
     MidataAccountPage,
     ProfilPage,
+    LoginPage,
   ],
   providers: [
     StatusBar,
@@ -62,6 +72,11 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     // add plugin to providers
     NativePageTransitions,
     LocalDatabaseProvider,
+    NativeStorage, 
+    MidataService, 
+    SecureStorage, 
+    Network, 
+    InAppBrowser, 
   ]
 })
 export class AppModule { }
