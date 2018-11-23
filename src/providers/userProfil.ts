@@ -1,4 +1,4 @@
-export class UserProfil {
+export interface UserProfil {
     sex: boolean;
     weight: number;
 }

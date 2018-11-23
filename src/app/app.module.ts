@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import {NativeStorage} from '@ionic-native/native-storage';
 import { SecureStorage, SecureStorageObject } from '@ionic-native/secure-storage';
@@ -63,20 +63,19 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     BalancePage,
     MidataAccountPage,
     ProfilPage,
-    LoginPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    // add plugin to providers
     NativePageTransitions,
     LocalDatabaseProvider,
     NativeStorage, 
     MidataService, 
     SecureStorage, 
     Network, 
-    InAppBrowser, 
+    InAppBrowser
   ]
 })
 export class AppModule { }
