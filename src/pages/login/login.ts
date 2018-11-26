@@ -38,7 +38,7 @@ export class LoginPage {
     this.midataService.authenticate()
       .then((success: boolean) => {
         if(success)
-          this.navCtrl.pop();
+          this.navCtrl.setRoot(TabsPage);
         else
           console.log('sbpbiusbvdugipvad')
     });

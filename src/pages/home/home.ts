@@ -1,19 +1,44 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {
+  Component
+} from '@angular/core';
+import {
+  NavController,
+  DateTime
+} from 'ionic-angular';
 
 // import Pages
-import { MidataAccountPage } from '../midata-account/midata-account';
-import { ProfilPage } from '../profil/profil';
+import {
+  MidataAccountPage
+} from '../midata-account/midata-account';
+import {
+  ProfilPage
+} from '../profil/profil';
 
 // import for more-button
-import { ActionSheetController } from 'ionic-angular';
+import {
+  ActionSheetController
+} from 'ionic-angular';
 
 // Provider
-import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
-import { UserProfil } from '../../providers/userProfil';
-import { Bac } from '../../providers/bac';
-import { MidataService } from '../../services/midataService';
-import { LoginPage } from '../login/login';
+import {
+  LocalDatabaseProvider
+} from '../../providers/local-database/local-database';
+import {
+  UserProfil
+} from '../../providers/userProfil';
+import {
+  Bac
+} from '../../providers/bac';
+import {
+  MidataService
+} from '../../services/midataService';
+import {
+  LoginPage
+} from '../login/login';
+import {
+  Observation,
+  Bundle
+} from 'Midata';
 
 @Component({
   selector: 'page-home',
@@ -42,91 +67,118 @@ export class HomePage {
   percentageOfAlcOfDrink: number;
   selectedVolume: number;
   numberOfDrink: number;
-  drinksArr: any = [
-    { img: "bier.png", volume: [250, 330, 500], percentageOfAlc: 5, alkSteps: 0.5 },
-    { img: "wein.png", volume: [100, 200, 300], percentageOfAlc: 12, alkSteps: 0.5 },
-    { img: "drink.png", volume: [20, 40, 60], percentageOfAlc: 40, alkSteps: 5 },
-    { img: "shot.png", volume: [10, 20, 30], percentageOfAlc: 40, alkSteps: 5 }
+  drinksArr: any = [{
+      img: "bier.png",
+      volume: [250, 330, 500],
+      percentageOfAlc: 5,
+      alkSteps: 0.5
+    },
+    {
+      img: "wein.png",
+      volume: [100, 200, 300],
+      percentageOfAlc: 12,
+      alkSteps: 0.5
+    },
+    {
+      img: "drink.png",
+      volume: [20, 40, 60],
+      percentageOfAlc: 40,
+      alkSteps: 5
+    },
+    {
+      img: "shot.png",
+      volume: [10, 20, 30],
+      percentageOfAlc: 40,
+      alkSteps: 5
+    }
   ];
 
 
   imageSourceTemplate: string = "../../assets/imgs/";
   imageSource: string;
 
+  private midataService: MidataService;
+
   constructor(public navCtrl: NavController,
     public localStorage: LocalDatabaseProvider,
     public actionSheetController: ActionSheetController,
-    public midataService: MidataService) {
+    midataService: MidataService) {
 
-      if (typeof this.bac === 'undefined') {
+    if (typeof this.bac === 'undefined') {
       this.bac = {
         value: 0,
         time: new Date()
       };
     }
+
+    this.midataService = midataService;
   }
 
   // TESTER
   callUpdateBac(): void {
-    this.updateBac(0).then(() => { console.log('BAC got updated')});
+    this.updateBac(0).then(() => {
+      console.log('BAC got updated')
+    });
   }
 
   ngAfterViewInit() {
     this.isAddingDrink = false;
-    
+
     this.localStorage.getBac().then((bac) => {
-      if(!bac) {
-        
-       console.log("bac is null")
-        
+      if (!bac) {
+
+        console.log("bac is null")
+
         this.bac.value = 0;
         this.bac.time = new Date();
-        this.localStorage.setBac(this.bac).then(() => { console.log('wuiiiiiiiiii')});
-        
+        this.localStorage.setBac(this.bac).then(() => {
+          console.log('wuiiiiiiiiii')
+        });
+
       } else {
-        console.log("bac is: " + bac.value + "time: " + bac.time + "type: " + typeof(bac.time) ) 
+        console.log("bac is: " + bac.value + "time: " + bac.time + "type: " + typeof (bac.time))
 
         this.bac = bac;
-       
+
       }
     })
-    
+
   }
 
-  updateBac(bacToAdd: number):Promise<any> {
+  updateBac(bacToAdd: number): Promise < any > {
     return this.localStorage.getBac().then((val) => {
-        let newDate: Date = new Date();
-        let newDateInMilisec: number = newDate.getTime();
+      let newDate: Date = new Date();
+      let newDateInMilisec: number = newDate.getTime();
 
-        // important
-        // val.time is a string on the device, because of that
-        // it's need to be integratet in a new Date()
-        let oldDate: Date = new Date(val.time);
-        console.log(typeof(oldDate));
-        let oldDateInMilisec = oldDate.getTime();
-        let passedTime = newDateInMilisec - oldDateInMilisec;
+      // important
+      // val.time is a string on the device, because of that
+      // it's need to be integratet in a new Date()
+      let oldDate: Date = new Date(val.time);
+      console.log(typeof (oldDate));
+      let oldDateInMilisec = oldDate.getTime();
+      let passedTime = newDateInMilisec - oldDateInMilisec;
 
-        this.bac.time = newDate;
-    
-        // WARNING
-        // it is calculating with Minutes and not with houers
-        // for Presentation Purpose only
-        let timeToReduceBac: number = 60000; // --> 1 Minute instead of 1 houer
-        this.bac.value = this.bac.value - (0.1 * (passedTime / timeToReduceBac));
-        if(this.bac.value < 0 ) {
-          this.bac.value = 0;
-        }
+      this.bac.time = newDate;
 
-        // when a drink was added, bacToAdd needs to add to the bac
-        this.bac.value += bacToAdd;
-        this.localStorage.setBac(this.bac);
+      // WARNING
+      // it is calculating with Minutes and not with houers
+      // for Presentation Purpose only
+      let timeToReduceBac: number = 60000; // --> 1 Minute instead of 1 houer
+      this.bac.value = this.bac.value - (0.1 * (passedTime / timeToReduceBac));
+      if (this.bac.value < 0) {
+        this.bac.value = 0;
+      }
+
+      // when a drink was added, bacToAdd needs to add to the bac
+      this.bac.value += bacToAdd;
+      this.localStorage.setBac(this.bac);
     });
   }
 
   //// METHODS FOR DRINK ////
   // Adding Drink
   addDrink(drink: number): void {
-    
+
     this.userConsumation.drinkIndex = drink;
     this.userConsumation.volumeIndex = 1;
     this.userConsumation.percentageOfAlc = this.drinksArr[this.userConsumation.drinkIndex].percentageOfAlc;
@@ -146,10 +198,11 @@ export class HomePage {
       if (val == null) {
         this.navCtrl.push(ProfilPage);
       } else {
-      
+
         this.calculateBacValue(val).then((bacToAdd) => {
 
           this.updateBac(bacToAdd);
+
 
           /*
           this.localStorage.getBac().then((oldBac) => {
@@ -167,14 +220,60 @@ export class HomePage {
           });
           */
 
-         this.isAddingDrink = false;
+          this.isAddingDrink = false;
 
         });
+
+        let codingStuff = {
+          coding: [{
+            system: 'http://snomed.info/sct',
+            code: '160573003',
+            display: 'Alkoholkonsum'
+          }]
+        }
+
+        let category = {
+            coding: [{
+              system: 'http://hl7.org/fhir/observation-category',
+              code: 'survey',
+              display: 'Survey'
+            }],
+          },
+          effectivePeriod: {
+            start: DateTime;
+            end: DateTime;
+          }
+
+        let entry = new Observation({
+          _dateTime: new Date().toISOString()
+        }, codingStuff, category);
+
+        entry.addComponent({
+
+          code: {
+            coding: [{
+              //Muss noch validiert werden von Alexander Kreuz 
+              "system": "http://snomed.info/sct",
+              "code": "167009006",
+              "display": "Alkohol in Gramm"
+            }]
+          },
+          valueQuantity: {
+            value: this.selectedVolume //muss noch deklariert werden 
+          }, 
+          valueString: "Bier" //muss noch deklariert werden 
+
+        })
+
+        let bundle = new Bundle("transaction");
+        bundle.addEntry("POST", entry.resourceType, entry);
+        this.midataService.save(bundle);
+
       }
     });
   }
 
-  async calculateBacValue(data: UserProfil): Promise<number> {
+  async calculateBacValue(data: UserProfil): Promise < number > {
     let numOfDrink = this.userConsumation.numberOfDrink;
     let volume = this.userConsumation.volume;
     let alcVol = this.userConsumation.percentageOfAlc;
@@ -238,8 +337,7 @@ export class HomePage {
   showMore(): void {
     let actionSheet = this.actionSheetController.create({
       title: 'Einstellungen',
-      buttons: [
-        {
+      buttons: [{
           text: 'MIDATA Account',
           role: 'midata_account',
           handler: () => {
