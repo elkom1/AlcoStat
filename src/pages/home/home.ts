@@ -126,6 +126,7 @@ export class HomePage {
   //// METHODS FOR DRINK ////
   // Adding Drink
   addDrink(drink: number): void {
+    
     this.userConsumation.drinkIndex = drink;
     this.userConsumation.volumeIndex = 1;
     this.userConsumation.percentageOfAlc = this.drinksArr[this.userConsumation.drinkIndex].percentageOfAlc;
