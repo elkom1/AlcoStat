@@ -3,9 +3,9 @@ import { Midata, Resource} from 'Midata';
 import { SecureStorage, SecureStorageObject } from "@ionic-native/secure-storage";
 import { Events, Platform } from "ionic-angular";
 import { Network } from "@ionic-native/network";
-import {NativeStorage} from '@ionic-native/native-storage';
-import { TokenRefreshResponse, TokenResponse} from "midata/dist/src/api";
-import {Promise} from 'es6-promise';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { TokenRefreshResponse } from "midata/dist/src/api";
+import { Promise } from 'es6-promise';
 import { AuthAndPatResponse } from 'Midata/dist/src/Midata';
 
 @Injectable()
@@ -23,21 +23,21 @@ export class MidataService {
     	protected network: Network
     ){
 
-      this.events.subscribe('network:connected', (callback) => {
-        this.onNetworkConnected(callback);
-      });
+      // this.events.subscribe('network:connected', (callback) => {
+      //   this.onNetworkConnected(callback);
+      // });
 
-      this.events.subscribe('network:disconnected', () => {
-        this.onNetworkDisconnected();
-      });
+      // this.events.subscribe('network:disconnected', () => {
+      //   this.onNetworkDisconnected();
+      // });
 
-      this.events.subscribe('application:paused', (callback) => {
-        this.onApplicationPaused(callback);
-      });
+      // this.events.subscribe('application:paused', (callback) => {
+      //   this.onApplicationPaused(callback);
+      // });
 
-      this.events.subscribe('application:resumed', (callback) => {
-        this.onApplicationResumed(callback);
-      });
+      // this.events.subscribe('application:resumed', (callback) => {
+      //   this.onApplicationResumed(callback);
+      // });
 
       // TODO: Change platform
       this.midata = new Midata('https://test.midata.coop', 'MiDemo', 'metal taste buzz bonus toy volume');
@@ -281,7 +281,7 @@ export class MidataService {
     if(this.getNetworkState()) {
       return this.getConnection().fetchFHIRConformanceStatement()
         .then(() => {
-        return this.midata.authenticate();
+          return this.midata.authenticate();
         })
         .then((rsp : AuthAndPatResponse) => {
         //we can now acces the token response with

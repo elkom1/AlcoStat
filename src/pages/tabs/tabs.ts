@@ -26,7 +26,7 @@ export class TabsPage {
 
   }
 
-  // Create the function for getting animation direction by tab index
+  // // Create the function for getting animation direction by tab index
   private getAnimationDirection(index): string {
     var currentIndex = this.tabIndex;
 
@@ -40,7 +40,7 @@ export class TabsPage {
     }
   }
 
-  // Create the function for the animated transition
+  // // Create the function for the animated transition
   public transition(e): void {
     let options: NativeTransitionOptions = {
       direction: this.getAnimationDirection(e.index),

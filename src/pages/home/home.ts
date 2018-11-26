@@ -5,10 +5,6 @@ import { NavController } from 'ionic-angular';
 import { MidataAccountPage } from '../midata-account/midata-account';
 import { ProfilPage } from '../profil/profil';
 
-// imports for sliding 
-import { ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
-
 // import for more-button
 import { ActionSheetController } from 'ionic-angular';
 
@@ -16,7 +12,8 @@ import { ActionSheetController } from 'ionic-angular';
 import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
 import { UserProfil } from '../../providers/userProfil';
 import { Bac } from '../../providers/bac';
-
+import { MidataService } from '../../services/midataService';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -24,24 +21,21 @@ import { Bac } from '../../providers/bac';
 })
 export class HomePage {
   // for sliding
-  @ViewChild(Slides) slides: Slides;
+  //@ViewChild(Slides) slides: Slides;
 
-  test:any = "noEnter";
+  //test:any = "noEnter";
 
-  bac: Bac = {
-    value: null,
-    time: null,
-  }
+  bac: Bac;
 
   intervalID: number = 0;
 
-  userConsumation: any = {
-    drinkIndex: null,
-    volumeIndex: null,
-    percentageOfAlc: null,
-    volume: null,
-    numberOfDrink: null,
-  }
+  userConsumation = {
+    drinkIndex: 0,
+    volumeIndex: 0,
+    percentageOfAlc: 0,
+    volume: 0,
+    numberOfDrink: 0
+  };
 
   isAddingDrink: boolean;
   selectedDrink: number;
@@ -61,29 +55,33 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     public localStorage: LocalDatabaseProvider,
-    public actionSheetController: ActionSheetController) {
+    public actionSheetController: ActionSheetController,
+    public midataService: MidataService) {
 
+      if (typeof this.bac === 'undefined') {
+      this.bac = {
+        value: 0,
+        time: new Date()
+      };
+    }
   }
 
   // TESTER
   callUpdateBac(): void {
-    this.updateBac(0);
+    this.updateBac(0).then(() => { console.log('BAC got updated')});
   }
 
-  ionViewWillEnter() {
+  ngAfterViewInit() {
     this.isAddingDrink = false;
     
     this.localStorage.getBac().then((bac) => {
-      if(bac == null ) {
+      if(!bac) {
         
        console.log("bac is null")
         
         this.bac.value = 0;
         this.bac.time = new Date();
-        this.localStorage.setBac(this.bac);
-
-
-
+        this.localStorage.setBac(this.bac).then(() => { console.log('wuiiiiiiiiii')});
         
       } else {
         console.log("bac is: " + bac.value + "time: " + bac.time + "type: " + typeof(bac.time) ) 
@@ -95,8 +93,8 @@ export class HomePage {
     
   }
 
-  async updateBac(bacToAdd: number):Promise<any> {
-    this.localStorage.getBac().then((val) => {
+  updateBac(bacToAdd: number):Promise<any> {
+    return this.localStorage.getBac().then((val) => {
         let newDate: Date = new Date();
         let newDateInMilisec: number = newDate.getTime();
 
@@ -139,8 +137,8 @@ export class HomePage {
     //this.selectedDrink = drink;
     //this.selectedVolume = 1;
     this.isAddingDrink = true;
-  }
 
+  }
 
   saveDrink(): void {
     this.localStorage.getUserProfil().then((val) => {
@@ -263,6 +261,14 @@ export class HomePage {
           role: 'impressum',
           handler: () => {
             console.log('Go to Impressum');
+          }
+        },
+        {
+          text: 'Logout',
+          role: 'Logout',
+          handler: () => {
+            this.midataService.logout();
+            this.navCtrl.push(LoginPage);
           }
         }
       ]

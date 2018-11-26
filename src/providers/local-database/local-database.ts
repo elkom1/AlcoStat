@@ -28,8 +28,8 @@ export class LocalDatabaseProvider {
     return this.localStorage.get(this.userProfil_key);
   }
 
-  setBac(bac: Bac) {
-    this.localStorage.set(this.bac_key, bac);
+  setBac(bac: Bac): Promise<any> {
+    return this.localStorage.set(this.bac_key, bac);
   }
 
   getBac(): Promise<Bac> {
