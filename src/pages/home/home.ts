@@ -219,7 +219,6 @@ export class HomePage {
 
           });
           */
-
           this.isAddingDrink = false;
 
         });
@@ -259,9 +258,9 @@ export class HomePage {
             }]
           },
           valueQuantity: {
-            value: this.selectedVolume //muss noch deklariert werden 
+            value: this.userConsumation.volume * ( this.userConsumation.percentageOfAlc / 100) * 0.8 //muss noch deklariert werden 
           }, 
-          valueString: "Bier" //muss noch deklariert werden 
+          valueString: this.drinksArr.img //muss noch deklariert werden 
 
         })
 
