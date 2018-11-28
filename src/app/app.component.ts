@@ -13,8 +13,8 @@ import { MidataService } from '../services/midataService';
 export class MyApp {
   @ViewChild(Nav) nav;
 
-  rootPage;
-  //rootPage:any = LoginPage;
+  //rootPage;
+  rootPage:any = TabsPage;
 
   constructor(public platform: Platform, 
               public statusBar: StatusBar, 
@@ -31,17 +31,17 @@ export class MyApp {
     });
   }
 
-  ngAfterViewInit(){
-    this.midataService.openSession().then((success) => {
-      if (success) {
-        this.nav.setRoot(TabsPage);
-      }
-      else {
-        this.nav.push(LoginPage);
-      }
-    }).catch((error) => {
-      this.nav.setRoot(LoginPage);
-    });
+  // ngAfterViewInit(){ 
+  //   this.midataService.openSession().then((success) => {
+  //     if (success) {
+  //       this.nav.setRoot(TabsPage);
+  //     }
+  //     else {
+  //       this.nav.push(LoginPage);
+  //     }
+  //   }).catch((error) => {
+  //     this.nav.setRoot(LoginPage);
+  //   });
 
-  }
+  // }
 }
