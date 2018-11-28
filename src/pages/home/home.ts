@@ -251,17 +251,28 @@ export class HomePage {
 
           code: {
             coding: [{
-              //Muss noch validiert werden von Alexander Kreuz 
               "system": "http://snomed.info/sct",
-              "code": "167009006",
+              "code": "274776000",
               "display": "Alkohol in Gramm"
             }]
           },
           valueQuantity: {
-            value: this.userConsumation.volume * ( this.userConsumation.percentageOfAlc / 100) * 0.8 //muss noch deklariert werden 
-          }, 
-          valueString: this.drinksArr.img //muss noch deklariert werden 
+            value: this.userConsumation.volume * ( this.userConsumation.percentageOfAlc / 100) * 0.8 
+          }
+        })
 
+        entry.addComponent({
+
+          code: {
+            coding: [{
+              //Muss noch validiert werden von Alexander Kreuz 
+              "system": "http://snomed.info/sct",
+              "code": "160573003",  //muss noch angeschaut werden welcher snomed code hier passt
+              "display": "Getränketyp"
+            }]
+          },
+          valueString: this.drinksArr[0].img //muss noch deklariert werden 
+        
         })
 
         let bundle = new Bundle("transaction");
