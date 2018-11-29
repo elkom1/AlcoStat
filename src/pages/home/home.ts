@@ -144,11 +144,11 @@ userConsumation: UserConsumation;
 
       } else {
         console.log("bac is: " + bac.value + "time: " + bac.time + "type: " + typeof (bac.time))
-
         this.bac = bac;
-
       }
     })
+
+    setInterval(() => this.updateBac(0), 30000);
 
   }
 
