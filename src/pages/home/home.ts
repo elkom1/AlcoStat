@@ -39,6 +39,7 @@ import {
   Observation,
   Bundle
 } from 'Midata';
+import { UserConsumation } from './userConsumation';
 
 @Component({
   selector: 'page-home',
@@ -54,13 +55,14 @@ export class HomePage {
 
   intervalID: number = 0;
 
-  userConsumation = {
-    drinkIndex: 0,
-    volumeIndex: 0,
-    percentageOfAlc: 0,
-    volume: 0,
-    numberOfDrink: 0
-  };
+userConsumation: UserConsumation;
+  // userConsumation = {
+  //   drinkIndex: 0,
+  //   volumeIndex: 0,
+  //   percentageOfAlc: 0,
+  //   volume: 0,
+  //   numberOfDrink: 0
+  // };
 
   isAddingDrink: boolean;
   selectedDrink: number;
@@ -68,24 +70,28 @@ export class HomePage {
   selectedVolume: number;
   numberOfDrink: number;
   drinksArr: any = [{
+      category: "Bier",
       img: "bier.png",
       volume: [250, 330, 500],
       percentageOfAlc: 5,
       alkSteps: 0.5
     },
     {
+      category: "Wein",
       img: "wein.png",
       volume: [100, 200, 300],
       percentageOfAlc: 12,
       alkSteps: 0.5
     },
     {
+      category: "Drink",
       img: "drink.png",
       volume: [20, 40, 60],
       percentageOfAlc: 40,
       alkSteps: 5
     },
     {
+      category: "Shot",
       img: "shot.png",
       volume: [10, 20, 30],
       percentageOfAlc: 40,
@@ -112,6 +118,7 @@ export class HomePage {
     }
 
     this.midataService = midataService;
+    this.userConsumation = new UserConsumation();
   }
 
   // TESTER
@@ -132,7 +139,7 @@ export class HomePage {
         this.bac.value = 0;
         this.bac.time = new Date();
         this.localStorage.setBac(this.bac).then(() => {
-          console.log('wuiiiiiiiiii')
+          
         });
 
       } else {
@@ -178,11 +185,11 @@ export class HomePage {
   //// METHODS FOR DRINK ////
   // Adding Drink
   addDrink(drink: number): void {
-
     this.userConsumation.drinkIndex = drink;
     this.userConsumation.volumeIndex = 1;
-    this.userConsumation.percentageOfAlc = this.drinksArr[this.userConsumation.drinkIndex].percentageOfAlc;
-    this.userConsumation.volume = this.drinksArr[this.userConsumation.drinkIndex].volume[this.userConsumation.volumeIndex];
+    this.userConsumation.drinkCategory = this.drinksArr[drink].category;
+    this.userConsumation.percentageOfAlc = this.drinksArr[drink].percentageOfAlc;
+    this.userConsumation.volume = this.drinksArr[drink].volume[this.userConsumation.volumeIndex];
     this.userConsumation.numberOfDrink = 1;
     // binding image
     this.imageSource = this.imageSourceTemplate.concat(this.drinksArr[drink].img);
@@ -238,6 +245,7 @@ export class HomePage {
               display: 'Survey'
             }],
           },
+          //was brauchtst du hier?
           effectivePeriod: {
             start: DateTime;
             end: DateTime;
@@ -271,7 +279,7 @@ export class HomePage {
               "display": "Getränketyp"
             }]
           },
-          valueString: this.drinksArr[0].img //muss noch deklariert werden 
+          valueString: this.userConsumation.drinkCategory //Jetzt ist gut. 
         
         })
 
