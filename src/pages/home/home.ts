@@ -279,8 +279,8 @@ userConsumation: UserConsumation;
               "display": "Getränketyp"
             }]
           },
-          valueString: this.userConsumation.drinkCategory //Jetzt ist gut. 
         
+          valueString: this.userConsumation.drinkCategory //Jetzt ist gut. 
         })
 
         let bundle = new Bundle("transaction");
