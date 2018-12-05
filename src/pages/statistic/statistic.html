@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content padding>
+
+  <!-- temporäre Lösung zum login .... sollte bei der Menüliste sein -->
+  <button ion-fab (click)="goLoginPage()">
+    LOGIN
+  </button>
+
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
 
@@ -13,16 +19,14 @@
     </div>
 
     <div *ngIf="isShowTable">
-        <img src="../../assets/imgs/statisticTable.png" alt="">
-      </div>
-    
+      <img src="../../assets/imgs/statisticTable.png" alt="">
+    </div>
+
     <ion-fab bottom center>
       <button ion-fab (click)="changeView()">
         <ion-icon name="ios-switch-outline"></ion-icon>
       </button>
     </ion-fab>
-
-
 
   </div>
 </ion-content>

@@ -48,7 +48,9 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true,
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

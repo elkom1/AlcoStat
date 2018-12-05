@@ -1,8 +1,20 @@
-import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { MidataService } from '../../services/midataService';
- import { TabsPage } from '../tabs/tabs';
+import {
+  Component
+} from '@angular/core';
+import {
+  NavController,
+  LoadingController,
+  Platform
+} from 'ionic-angular';
+import {
+  InAppBrowser
+} from '@ionic-native/in-app-browser';
+import {
+  MidataService
+} from '../../services/midataService';
+import {
+  TabsPage
+} from '../tabs/tabs';
 
 
 @Component({
@@ -13,43 +25,38 @@ import { MidataService } from '../../services/midataService';
 export class LoginPage {
 
   constructor(
-      public navCtrl: NavController,
-      private loadingCtrl: LoadingController,
-      private inAppBrowser: InAppBrowser,
-      private midataService: MidataService) {
+    public navCtrl: NavController,
+    private loadingCtrl: LoadingController,
+    private inAppBrowser: InAppBrowser,
+    private midataService: MidataService,
+    private platform: Platform) {}
+
+  register() {
+    this.inAppBrowser.create('https://test.midata.coop/#/portal/registration');
   }
 
-  // register(){
-  //   this.inAppBrowser.create('https://test.midata.coop/#/portal/registration');
-  // }
+  visitMidata() {
+    this.inAppBrowser.create('https://midata.coop');
+  }
 
-  // visitMidata(){
-  //   this.inAppBrowser.create('https://midata.coop');
-  // }
 
   login() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...' // TODO: Translate
+    });
 
-    // let loading = this.loadingCtrl.create({
-    //   content: 'Please wait...' // TODO: Translate
-    // });
-
-    // loading.present().catch();
+    loading.present().catch();
 
     this.midataService.authenticate()
       .then((success: boolean) => {
-        if(success)
-          this.navCtrl.setRoot(TabsPage);
-        else
-          console.log('sbpbiusbvdugipvad')
-    });
-    //   .catch((error) => {
-    //   console.log(error);
-    //   console.log(this.midataService.getNetworkState());
-    //   loading.dismiss().catch();
-    // })
-
-   // this.navCtrl.setRoot(TabsPage);
-
-    //   return this.midataService.syncMidataRecordsToLocalStorage(1000); // TODO: Delegate to MidataService
+        return this.navCtrl.pop();
+      })
+      .then(() => {
+        loading.dismiss().catch();
+      })
+      .catch((error) => {
+        loading.dismiss().catch();
+      })
   }
+
 }

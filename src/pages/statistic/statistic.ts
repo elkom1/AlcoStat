@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { LoginPage } from '../login/login';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the StatisticPage page.
@@ -31,6 +33,10 @@ export class StatisticPage {
     if (event.direction === 2) { // 2 = nach rechts swipen
       this.navCtrl.parent.select(1); // 0 = statistic, 1 = home, 2 = skills
     }
+  }
+
+  goLoginPage() {
+    this.navCtrl.push(LoginPage); 
   }
 
 }
