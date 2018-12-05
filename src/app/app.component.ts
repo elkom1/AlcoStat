@@ -13,7 +13,7 @@ import { MidataService } from '../services/midataService';
 export class MyApp {
   @ViewChild(Nav) nav;
 
-  //rootPage;
+  //rootPage: any = LoginPage;
   rootPage:any = TabsPage;
 
   constructor(public platform: Platform, 
