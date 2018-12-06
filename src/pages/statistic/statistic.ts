@@ -1,9 +1,29 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
-import { ProfilPage } from '../profil/profil';
-import { MidataService } from '../../services/midataService';
+import {
+  Component
+} from '@angular/core';
+import {
+  NavController,
+  NavParams,
+  ActionSheetController
+} from 'ionic-angular';
+import {
+  LoginPage
+} from '../login/login';
+import {
+  LocalDatabaseProvider
+} from '../../providers/local-database/local-database';
+import {
+  ProfilPage
+} from '../profil/profil';
+import {
+  MidataService
+} from '../../services/midataService';
+import {
+  DatenschutzPage
+} from '../datenschutz/datenschutz';
+import {
+  ImpressumPage
+} from '../impressum/impressum';
 
 /**
  * Generated class for the StatisticPage page.
@@ -20,21 +40,21 @@ export class StatisticPage {
 
   isShowTable: boolean = false;
 
-  private midataService: MidataService; 
+  private midataService: MidataService;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public localStorage: LocalDatabaseProvider, 
+    public localStorage: LocalDatabaseProvider,
     public actionSheetController: ActionSheetController,
     midataService: MidataService) {
-      this.midataService = midataService; 
+    this.midataService = midataService;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StatisticPage');
   }
 
-  changeView():void {
+  changeView(): void {
     this.isShowTable = !this.isShowTable
   }
 
@@ -45,40 +65,45 @@ export class StatisticPage {
   }
 
   goLoginPage() {
-    this.navCtrl.push(LoginPage); 
+    this.navCtrl.push(LoginPage);
   }
 
-   // function for show settings
-   showMore(): void {
+  // function for show settings
+  showMore(): void {
     let actionSheet = this.actionSheetController.create({
       title: 'Einstellungen',
       buttons: [{
           text: 'MIDATA Benutzerkonto',
+          icon: 'contact',
           role: 'midata_account',
           handler: () => {
             this.navCtrl.push(LoginPage);
           }
         }, {
           text: 'Mein Profil',
+          icon: 'person',
           role: 'mein_profil',
           handler: () => {
             this.navCtrl.push(ProfilPage);
           }
         }, {
           text: 'Datenschutzerklärung',
+          icon: 'lock',
           role: 'datenschutz_erklaerung',
           handler: () => {
-            console.log('Go to Datenschutz Erklährung');
+            this.navCtrl.push(DatenschutzPage)
           }
         }, {
           text: 'Impressum',
+          icon: 'people',
           role: 'impressum',
           handler: () => {
-            console.log('Go to Impressum');
+            this.navCtrl.push(ImpressumPage)
           }
         },
         {
           text: 'Logout',
+          icon: 'log-out',
           role: 'Logout',
           handler: () => {
             this.midataService.logout();
