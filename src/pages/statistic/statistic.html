@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title >Pegel: {{ bac.value | number}} ‰</ion-title>
+    <ion-title>Pegel: {{ bac.value | number}} ‰</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="showMore()">
         <ion-icon name="more"></ion-icon>
@@ -11,20 +11,40 @@
 
 <ion-content padding>
 
+  <ion-segment>
+    <ion-segment-button value="day" (ionSelect)="showDayTable()">
+      Tag
+    </ion-segment-button>
+    <ion-segment-button value="week" (ionSelect)="showWeekTable()">
+      Woche
+    </ion-segment-button>
+    <ion-segment-button value="month" (ionSelect)="showMonthTable()">
+      Monat
+    </ion-segment-button>
+  </ion-segment>
+
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
 
-    <div *ngIf="!isShowTable">
+    <div *ngIf="isShowDayTable">
       <img src="../../assets/imgs/statistic.png" alt="">
     </div>
 
-    <div *ngIf="isShowTable">
+    <div *ngIf="isShowWeekTable">
+      <img src="../../assets/imgs/icon.png" alt="">
+    </div>
+
+    <div *ngIf="isShowMonthTable">
+      <img src="../../assets/imgs/drink.png" alt="">
+    </div>
+
+    <div *ngIf="isShowScheduledTable">
       <img src="../../assets/imgs/statisticTable.png" alt="">
     </div>
 
     <ion-fab bottom center>
       <button ion-fab (click)="changeView()">
-        <ion-icon name="ios-switch-outline"></ion-icon>
+        <ion-icon name="list"></ion-icon>
       </button>
     </ion-fab>
 

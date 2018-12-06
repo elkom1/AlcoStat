@@ -39,11 +39,15 @@ import { Bac } from '../../providers/bac';
 })
 export class StatisticPage {
 
-  isShowTable: boolean = false;
+  isShowDayTable: boolean = false;
+  isShowWeekTable: boolean = false;
+  isShowMonthTable: boolean = false;
+  isShowScheduledTable: boolean = false; 
 
   bac: Bac;
 
   private midataService: MidataService;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -58,7 +62,27 @@ export class StatisticPage {
         time: new Date()
       };
     }
+  }
 
+  showDayTable() {
+    this.isShowDayTable = true; 
+    this.isShowWeekTable = false; 
+    this.isShowMonthTable = false; 
+    this.isShowScheduledTable = false; 
+  }
+
+  showWeekTable() {
+    this.isShowWeekTable = true; 
+    this.isShowDayTable = false; 
+    this.isShowMonthTable = false; 
+    this.isShowScheduledTable = false; 
+  }
+
+  showMonthTable() {
+    this.isShowMonthTable = true; 
+    this.isShowWeekTable = false; 
+    this.isShowDayTable = false; 
+    this.isShowScheduledTable = false; 
   }
 
   ngAfterViewInit() {
@@ -81,7 +105,10 @@ export class StatisticPage {
   }
 
   changeView(): void {
-    this.isShowTable = !this.isShowTable
+    this.isShowScheduledTable = true; 
+    this.isShowMonthTable = false; 
+    this.isShowWeekTable = false; 
+    this.isShowDayTable = false; 
   }
 
   swipe(event) {
