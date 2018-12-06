@@ -8,9 +8,6 @@ import {
 
 // import Pages
 import {
-  MidataAccountPage
-} from '../midata-account/midata-account';
-import {
   ProfilPage
 } from '../profil/profil';
 
