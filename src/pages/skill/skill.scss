@@ -1,3 +1,17 @@
 page-skill {
-
+    .btn-wrapper {
+        text-align: center;
+        width: 75%;
+        padding: 30px;
+        font-size: 20px;
+        color: white;
+        background-color: blue;
+        border-radius: 3px;
+        border: none;
+        margin: 10px;
+        font-weight: bold; 
+    }
+    ion-content {
+        margin-top: 40px; 
+    }
 }

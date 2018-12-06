@@ -20,7 +20,8 @@ import { CoordinationPage } from '../pages/coordination/coordination';
 import { BalancePage } from '../pages/balance/balance';
 import { ProfilPage } from '../pages/profil/profil';
 import { LoginPage } from "../pages/login/login";
-
+import { DatenschutzPage } from "../pages/datenschutz/datenschutz";
+import { ImpressumPage } from "../pages/impressum/impressum";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +43,9 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     CoordinationPage,
     BalancePage,
     ProfilPage,
-    LoginPage
+    LoginPage, 
+    DatenschutzPage,
+    ImpressumPage, 
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,9 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     CoordinationPage,
     BalancePage,
     ProfilPage,
-    LoginPage
+    LoginPage, 
+    DatenschutzPage, 
+    ImpressumPage, 
   ],
   providers: [
     StatusBar,

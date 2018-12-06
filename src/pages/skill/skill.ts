@@ -1,13 +1,37 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import {
+  Component
+} from '@angular/core';
+import {
+  NavController,
+  NavParams,
+  ActionSheetController
+} from 'ionic-angular';
 
 // import pages
-import { ReactionPage } from '../reaction/reaction';
-import { CoordinationPage } from '../coordination/coordination';
-import { BalancePage } from '../balance/balance';
-import { LoginPage } from '../login/login';
-import { ProfilPage } from '../profil/profil';
-import { MidataService } from '../../services/midataService';
+import {
+  ReactionPage
+} from '../reaction/reaction';
+import {
+  CoordinationPage
+} from '../coordination/coordination';
+import {
+  BalancePage
+} from '../balance/balance';
+import {
+  LoginPage
+} from '../login/login';
+import {
+  ProfilPage
+} from '../profil/profil';
+import {
+  MidataService
+} from '../../services/midataService';
+import {
+  DatenschutzPage
+} from '../datenschutz/datenschutz';
+import {
+  ImpressumPage
+} from '../impressum/impressum';
 
 @Component({
   selector: 'page-skill',
@@ -17,11 +41,11 @@ export class SkillPage {
 
   private midataService: MidataService;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public actionSheetController: ActionSheetController,
     midataService: MidataService) {
-      this.midataService = midataService;
+    this.midataService = midataService;
   }
 
   ionViewDidLoad() {
@@ -53,31 +77,36 @@ export class SkillPage {
       title: 'Einstellungen',
       buttons: [{
           text: 'MIDATA Benutzerkonto',
+          icon: 'contact',
           role: 'midata_account',
           handler: () => {
             this.navCtrl.push(LoginPage);
           }
         }, {
           text: 'Mein Profil',
+          icon: 'person',
           role: 'mein_profil',
           handler: () => {
             this.navCtrl.push(ProfilPage);
           }
         }, {
           text: 'Datenschutzerklärung',
+          icon: 'lock',
           role: 'datenschutz_erklaerung',
           handler: () => {
-            console.log('Go to Datenschutz Erklährung');
+            this.navCtrl.push(DatenschutzPage)
           }
         }, {
           text: 'Impressum',
+          icon: 'people',
           role: 'impressum',
           handler: () => {
-            console.log('Go to Impressum');
+            this.navCtrl.push(ImpressumPage)
           }
         },
         {
           text: 'Logout',
+          icon: 'log-out',
           role: 'Logout',
           handler: () => {
             this.midataService.logout();

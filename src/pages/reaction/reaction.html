@@ -1,23 +1,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Reaction Game</ion-title>
+    <ion-title>Reaktions-Test</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <button ion-button block outline *ngIf="isShowStartButton" (click)="startGame()">
-    Teste deine Reaktion</button>
+  </br>
+  <button ion-button large block outline *ngIf="isShowStartButton" (click)="startGame()">
+    Teste jetzt deine Reaktionszeit</button>
 
-  <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Berühr den Bildschirm, sobal dieser farbig wird</p>
+  <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Drücke auf den Bildschirm, sobald das farbige Feld erscheint</p>
 
   <div *ngIf="reactionTime && isShowStartButton && !hasFailed">
     <p class="score">Dein Score: {{ reactionTime }} ms</p>
   </div>
 
-  
+
   <div *ngIf="hasFailed">
     <p class="fail">FAIL</p>
   </div>

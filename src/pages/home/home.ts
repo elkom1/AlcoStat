@@ -36,7 +36,15 @@ import {
   Observation,
   Bundle
 } from 'Midata';
-import { UserConsumation } from './userConsumation';
+import {
+  UserConsumation
+} from './userConsumation';
+import {
+  DatenschutzPage
+} from '../datenschutz/datenschutz';
+import {
+  ImpressumPage
+} from '../impressum/impressum';
 
 @Component({
   selector: 'page-home',
@@ -52,7 +60,7 @@ export class HomePage {
 
   intervalID: number = 0;
 
-userConsumation: UserConsumation;
+  userConsumation: UserConsumation;
   // userConsumation = {
   //   drinkIndex: 0,
   //   volumeIndex: 0,
@@ -136,7 +144,7 @@ userConsumation: UserConsumation;
         this.bac.value = 0;
         this.bac.time = new Date();
         this.localStorage.setBac(this.bac).then(() => {
-          
+
         });
 
       } else {
@@ -262,7 +270,7 @@ userConsumation: UserConsumation;
             }]
           },
           valueQuantity: {
-            value: this.userConsumation.volume * ( this.userConsumation.percentageOfAlc / 100) * 0.8 
+            value: this.userConsumation.volume * (this.userConsumation.percentageOfAlc / 100) * 0.8
           }
         })
 
@@ -272,11 +280,11 @@ userConsumation: UserConsumation;
             coding: [{
               //Muss noch validiert werden von Alexander Kreuz 
               "system": "http://snomed.info/sct",
-              "code": "160573003",  //muss noch angeschaut werden welcher snomed code hier passt
+              "code": "160573003", //muss noch angeschaut werden welcher snomed code hier passt
               "display": "Getränketyp"
             }]
           },
-        
+
           valueString: this.userConsumation.drinkCategory //Jetzt ist gut. 
         })
 
@@ -354,31 +362,36 @@ userConsumation: UserConsumation;
       title: 'Einstellungen',
       buttons: [{
           text: 'MIDATA Benutzerkonto',
+          icon: 'contact',
           role: 'midata_account',
           handler: () => {
             this.navCtrl.push(LoginPage);
           }
         }, {
           text: 'Mein Profil',
+          icon: 'person',
           role: 'mein_profil',
           handler: () => {
             this.navCtrl.push(ProfilPage);
           }
         }, {
           text: 'Datenschutzerklärung',
+          icon: 'lock',
           role: 'datenschutz_erklaerung',
           handler: () => {
-            console.log('Go to Datenschutz Erklährung');
+            this.navCtrl.push(DatenschutzPage)
           }
         }, {
           text: 'Impressum',
+          icon: 'people',
           role: 'impressum',
           handler: () => {
-            console.log('Go to Impressum');
+            this.navCtrl.push(ImpressumPage)
           }
         },
         {
           text: 'Logout',
+          icon: 'log-out',
           role: 'Logout',
           handler: () => {
             this.midataService.logout();

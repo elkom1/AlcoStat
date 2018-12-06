@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title >Pegel: 0.4 ‰</ion-title>
+    <ion-title>Pegel: 0.4 ‰</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="showMore()">
         <ion-icon name="more"></ion-icon>
@@ -12,18 +12,12 @@
 <ion-content padding>
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
-    <ion-list >
-      <button ion-item  (click)="goToReaction()">
-        Teste deine Reaktion
-      </button>
-      
-      <button ion-item  (click)="goToCoordination()">
-        Teste deine Koordination
-      </button>
-      
-      <button ion-item  (click)="goToBalance()">
-        Teste deine Balance
-      </button>
-    </ion-list>
+
+    <div text-center align-items-center>
+      <button ion-button large class="btn-wrapper" (click)="goToReaction()">Reaktions-Test</button>
+      <button ion-button large class="btn-wrapper" (click)="goToCoordination()">Koordinations-Test</button>
+      <button ion-button large class="btn-wrapper" (click)="goToBalance()">Gleichgewichts-Test</button>
+    </div>
+
   </div>
 </ion-content>
