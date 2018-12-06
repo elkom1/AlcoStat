@@ -32,6 +32,8 @@ import {
 import {
   ImpressumPage
 } from '../impressum/impressum';
+import { Bac } from '../../providers/bac';
+import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
 
 @Component({
   selector: 'page-skill',
@@ -41,15 +43,40 @@ export class SkillPage {
 
   private midataService: MidataService;
 
+  bac: Bac;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public localStorage: LocalDatabaseProvider,
     public actionSheetController: ActionSheetController,
     midataService: MidataService) {
     this.midataService = midataService;
+
+    if (typeof this.bac === 'undefined') {
+      this.bac = {
+        value: 0,
+        time: new Date()
+      };
+    }
   }
+  
+  ngAfterViewInit() {
+    setInterval(() => this.updateBac(), 30000);
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SkillPage');
+  }
+  
+  ionViewWillEnter() {
+    this.updateBac();
+  }
+
+  updateBac() {
+    this.localStorage.getBac().then((val) => {
+      this.bac = val;
+    })
   }
 
   goToReaction(): void {
