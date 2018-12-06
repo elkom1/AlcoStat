@@ -8,14 +8,15 @@
 
 
 <ion-content padding>
-  
-  <button ion-button large block outline *ngIf="isShowStartButton" (click)="startGame()">
-    Teste jetzt deine Reaktionszeit</button>
 
-  <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Drücke auf den Bildschirm, sobald das farbige Feld erscheint</p>
+  <button ion-button large block outline *ngIf="isShowStartButton" (click)="startGame()">
+    Reaktionszeit jetzt testen</button>
+
+  <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Drücke auf den Bildschirm, sobald das farbige
+    Feld erscheint</p>
 
   <div *ngIf="reactionTime && isShowStartButton && !hasFailed">
-    <p class="score">Dein Score: {{ reactionTime }} ms</p>
+    <p class="score"> Dein Score: {{ reactionTime }} ms</p>
   </div>
 
 
@@ -33,10 +34,15 @@
   </ion-fab>
 
   <div *ngIf="isShowScore">
-    <ion-list>
-      <ion-item *ngFor="let score of scores">{{score}}</ion-item>
-    </ion-list>
-    <button ion-button ion-button round outline color="light" (click)="hideScore()">hide</button>
+    <ion-card>
+      <ion-card-header text-center style="color: white; background-color: blue">
+        Deine erzielten Scores
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let score of scores">- {{score}} ms</ion-item>
+      <button ion-button round outline (click)="hideScore()">Verbergen</button>
+    </ion-card-content>
+    </ion-card>
   </div>
 
   <!--
