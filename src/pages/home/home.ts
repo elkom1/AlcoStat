@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import {
   NavController,
-  DateTime
+  DateTime,
+  AlertController
 } from 'ionic-angular';
 
 // import Pages
@@ -113,6 +114,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     public localStorage: LocalDatabaseProvider,
     public actionSheetController: ActionSheetController,
+    public alertCtr: AlertController,
     midataService: MidataService) {
 
     if (typeof this.bac === 'undefined') {
@@ -354,6 +356,38 @@ export class HomePage {
     }
   }
 
+
+  showHint(drink: number): void {
+    if(drink == 0) {
+      let alert = this.alertCtr.create({
+        title: 'Bier',
+        subTitle: 'Bier hat ...',
+        buttons: ['OK']
+      });
+      alert.present();
+    } else if (drink == 1) {
+      let alert = this.alertCtr.create({
+        title: 'Wein',
+        subTitle: 'Wein hat ...',
+        buttons: ['OK']
+      });
+      alert.present();
+    } else if(drink == 2) {
+      let alert = this.alertCtr.create({
+        title: 'Cocktail',
+        subTitle: 'Cocktail hat ...',
+        buttons: ['OK']
+      });
+      alert.present();
+    } else {
+      let alert = this.alertCtr.create({
+        title: 'Shot',
+        subTitle: 'Shot hat ...',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+  }
 
 
   // function for show settings

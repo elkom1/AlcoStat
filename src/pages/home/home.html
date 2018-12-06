@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title >Pegel: {{ bac.value | number}} ‰</ion-title>
+    <ion-title>Pegel: {{ bac.value | number}} ‰</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="showMore()">
         <ion-icon name="more"></ion-icon>
@@ -25,6 +25,9 @@
       <div class="drinkImage" padding-top>
         <!--Grid-->
         <ion-grid>
+       
+          <!-- First row -->
+          <!-- Reduce Volume -->
           <ion-row align-items-center>
             <ion-col>
               <button ion-button icon-only clear large (click)="reduceVolume()">
@@ -32,42 +35,30 @@
               </button>
             </ion-col>
 
+            <!-- Image -->
             <ion-col class="col-container">
               <img [src]="imageSource" alt="">
               <ion-label class="volume-label">
                 {{ userConsumation.volume }} ml
               </ion-label>
+              
             </ion-col>
-
+            <!-- Increase Volue -->
+        
             <ion-col class="col-container">
               <button ion-button icon-only clear large (click)="increaseVolume()">
                 <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
               </button>
             </ion-col>
+            
           </ion-row>
 
-
-          <!--
+          <!-- second row -->
           <ion-row>
+             
+            <!-- Increase number of drinks -->
             <ion-col>
-              <button ion-button icon-only clear small>
-                <ion-icon name="ios-arrow-up-outline"></ion-icon>
-              </button>
-            </ion-col>
-           
-            <ion-col></ion-col>
-
-            <ion-col>
-              <button ion-button icon-only clear small>
-                <ion-icon name="ios-arrow-up-outline"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-          -->
-
-
-          <ion-row>
-            <ion-col>
+             
               <button ion-button icon-only clear small (click)="increaseNumberOfDrinks()">
                 <ion-icon name="ios-arrow-up-outline"></ion-icon>
               </button>
@@ -75,12 +66,18 @@
                 {{ userConsumation.numberOfDrink }}
               </ion-label>
               <button ion-button icon-only clear small (click)="reduceNumberOfDrinks()">
-                  <ion-icon name="ios-arrow-down-outline"></ion-icon>
-                </button>
+                <ion-icon name="ios-arrow-down-outline"></ion-icon>
+              </button>
             </ion-col>
 
+            <!-- Add Drink -->
             <ion-col>
+           
               <div class="addButtonContainer">
+                  <button ion-button icon-only round small (click)="showHint(userConsumation.drinkIndex)">
+                      <ion-icon name="md-information">
+                      </ion-icon>
+                    </button>
                 <button ion-button round icon-start (click)="saveDrink()">
                   <ion-icon name="md-checkmark-circle"></ion-icon>
                   Hinzufügen
@@ -88,17 +85,18 @@
               </div>
             </ion-col>
 
+            <!-- Increase Percentage of Alc -->
             <ion-col>
-                <button ion-button icon-only clear small (click)="increasePercentageOfAlc()">
-                    <ion-icon name="ios-arrow-up-outline"></ion-icon>
-                  </button>
+              <button ion-button icon-only clear small (click)="increasePercentageOfAlc()">
+                <ion-icon name="ios-arrow-up-outline"></ion-icon>
+              </button>
               <ion-label>
                 {{ userConsumation.percentageOfAlc }} %
               </ion-label>
 
               <button ion-button icon-only clear small (click)="reducePercentageOfAlc()">
-                  <ion-icon name="ios-arrow-down-outline"></ion-icon>
-                </button>
+                <ion-icon name="ios-arrow-down-outline"></ion-icon>
+              </button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -106,7 +104,7 @@
 
 
     </div>
-    
+
   </div>
 
 
