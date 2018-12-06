@@ -24,6 +24,7 @@ import {
 import {
   ImpressumPage
 } from '../impressum/impressum';
+import { Bac } from '../../providers/bac';
 
 /**
  * Generated class for the StatisticPage page.
@@ -40,6 +41,8 @@ export class StatisticPage {
 
   isShowTable: boolean = false;
 
+  bac: Bac;
+
   private midataService: MidataService;
 
   constructor(public navCtrl: NavController,
@@ -48,10 +51,33 @@ export class StatisticPage {
     public actionSheetController: ActionSheetController,
     midataService: MidataService) {
     this.midataService = midataService;
+
+    if (typeof this.bac === 'undefined') {
+      this.bac = {
+        value: 0,
+        time: new Date()
+      };
+    }
+
+  }
+
+  ngAfterViewInit() {
+    setInterval(() => this.updateBac(), 30000);
   }
 
   ionViewDidLoad() {
+    this.updateBac();
     console.log('ionViewDidLoad StatisticPage');
+  }
+
+  ionViewWillEnter() {
+    this.updateBac();
+  }
+
+  updateBac() {
+    this.localStorage.getBac().then((val) => {
+      this.bac = val;
+    })
   }
 
   changeView(): void {
