@@ -18,7 +18,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ReactionPage } from '../pages/reaction/reaction';
 import { CoordinationPage } from '../pages/coordination/coordination';
 import { BalancePage } from '../pages/balance/balance';
-import { MidataAccountPage } from '../pages/midata-account/midata-account';
 import { ProfilPage } from '../pages/profil/profil';
 import { LoginPage } from "../pages/login/login";
 
@@ -42,13 +41,14 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     ReactionPage,
     CoordinationPage,
     BalancePage,
-    MidataAccountPage,
     ProfilPage,
     LoginPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true,
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -61,7 +61,6 @@ import { LocalDatabaseProvider } from '../providers/local-database/local-databas
     ReactionPage,
     CoordinationPage,
     BalancePage,
-    MidataAccountPage,
     ProfilPage,
     LoginPage
   ],

@@ -1,10 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Pegel: 0.4</ion-title>
+    <ion-title >Pegel: 0.4 ‰</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showMore()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
 
@@ -13,16 +19,14 @@
     </div>
 
     <div *ngIf="isShowTable">
-        <img src="../../assets/imgs/statisticTable.png" alt="">
-      </div>
-    
+      <img src="../../assets/imgs/statisticTable.png" alt="">
+    </div>
+
     <ion-fab bottom center>
       <button ion-fab (click)="changeView()">
         <ion-icon name="ios-switch-outline"></ion-icon>
       </button>
     </ion-fab>
-
-
 
   </div>
 </ion-content>
