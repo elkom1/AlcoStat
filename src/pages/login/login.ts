@@ -42,7 +42,7 @@ export class LoginPage {
 
   login() {
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...' // TODO: Translate
+      content: 'Bitte warten...' 
     });
 
     loading.present().catch();
