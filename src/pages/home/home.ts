@@ -356,10 +356,10 @@ userConsumation: UserConsumation;
     let actionSheet = this.actionSheetController.create({
       title: 'Einstellungen',
       buttons: [{
-          text: 'MIDATA Account',
+          text: 'MIDATA Benutzerkonto',
           role: 'midata_account',
           handler: () => {
-            this.navCtrl.push(MidataAccountPage);
+            this.navCtrl.push(LoginPage);
           }
         }, {
           text: 'Mein Profil',
@@ -368,7 +368,7 @@ userConsumation: UserConsumation;
             this.navCtrl.push(ProfilPage);
           }
         }, {
-          text: 'Datenschutz erklärung',
+          text: 'Datenschutzerklärung',
           role: 'datenschutz_erklaerung',
           handler: () => {
             console.log('Go to Datenschutz Erklährung');
