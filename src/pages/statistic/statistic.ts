@@ -4,7 +4,8 @@ import {
 import {
   NavController,
   NavParams,
-  ActionSheetController
+  ActionSheetController,
+  AlertController
 } from 'ionic-angular';
 import {
   LoginPage
@@ -40,11 +41,13 @@ import { Bac } from '../../providers/bac';
 export class StatisticPage {
 
   isShowDayTable: boolean = false;
-  isShowWeekTable: boolean = false;
+  isShowWeekTable: boolean = true;
   isShowMonthTable: boolean = false;
-  isShowScheduledTable: boolean = false; 
+  isShowScheduledTable: boolean = false;
+  isShowHint: boolean = false;
 
   bac: Bac;
+
 
   private midataService: MidataService;
 
@@ -53,7 +56,8 @@ export class StatisticPage {
     public navParams: NavParams,
     public localStorage: LocalDatabaseProvider,
     public actionSheetController: ActionSheetController,
-    midataService: MidataService) {
+    midataService: MidataService,
+    public alertCtr: AlertController) {
     this.midataService = midataService;
 
     if (typeof this.bac === 'undefined') {
@@ -62,6 +66,16 @@ export class StatisticPage {
         time: new Date()
       };
     }
+  }
+
+  showInfo() {
+    let alert = this.alertCtr.create({
+      title: 'Getränke Informationen',
+      subTitle: 'Bier: blau <br> Wein: Orange <br> Cocktail: Grau <br> Schnaps: Gelb',
+      buttons: ['OK']
+    });
+    alert.present();
+    this.isShowHint = !this.isShowHint;
   }
 
   showDayTable() {

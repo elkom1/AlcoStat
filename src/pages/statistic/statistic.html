@@ -27,20 +27,26 @@
   <div class="main-content" (swipe)="swipe($event)">
 
     <div *ngIf="isShowDayTable">
-      <img src="../../assets/imgs/statistic.png" alt="">
+      <img src="../../assets/imgs/statisticDay.png" alt="">
     </div>
 
     <div *ngIf="isShowWeekTable">
-      <img src="../../assets/imgs/icon.png" alt="">
+      <img src="../../assets/imgs/statistic.png" alt="">
     </div>
 
     <div *ngIf="isShowMonthTable">
-      <img src="../../assets/imgs/drink.png" alt="">
+      <img src="../../assets/imgs/statisticMonth.png" alt="">
     </div>
 
     <div *ngIf="isShowScheduledTable">
       <img src="../../assets/imgs/statisticTable.png" alt="">
     </div>
+    <div>
+        <button ion-button icon-only (click)="showInfo()">
+          <ion-icon name="md-information">
+          </ion-icon>
+        </button>
+      </div>
 
     <ion-fab bottom center>
       <button ion-fab (click)="changeView()">
