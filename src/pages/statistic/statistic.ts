@@ -47,6 +47,8 @@ export class StatisticPage {
   isShowHint: boolean = false;
 
   bac: Bac;
+  entries: any = [];
+  test: any = {};
 
 
   private midataService: MidataService;
@@ -120,6 +122,11 @@ export class StatisticPage {
 
   changeView(): void { 
     this.isShowScheduledTable = ! this.isShowScheduledTable;
+    this.midataService.search('Observation').then((data) => {
+      this.test = data[0].toJson()
+      
+      
+    });
   }
 
   swipe(event) {
