@@ -26,21 +26,25 @@
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
 
-    <div *ngIf="isShowDayTable">
+    <div *ngIf="isShowDayTable && !isShowScheduledTable">
       <img src="../../assets/imgs/statisticDay.png" alt="">
     </div>
 
-    <div *ngIf="isShowWeekTable">
+    <div *ngIf="isShowWeekTable && !isShowScheduledTable">
       <img src="../../assets/imgs/statistic.png" alt="">
     </div>
 
-    <div *ngIf="isShowMonthTable">
+    <div *ngIf="isShowMonthTable && !isShowScheduledTable">
       <img src="../../assets/imgs/statisticMonth.png" alt="">
     </div>
 
     <div *ngIf="isShowScheduledTable">
       <img src="../../assets/imgs/statisticTable.png" alt="">
     </div>
+
+
+
+
     <div>
         <button ion-button icon-only (click)="showInfo()">
           <ion-icon name="md-information">

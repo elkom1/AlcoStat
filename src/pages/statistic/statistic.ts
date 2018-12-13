@@ -118,11 +118,8 @@ export class StatisticPage {
     })
   }
 
-  changeView(): void {
-    this.isShowScheduledTable = true; 
-    this.isShowMonthTable = false; 
-    this.isShowWeekTable = false; 
-    this.isShowDayTable = false; 
+  changeView(): void { 
+    this.isShowScheduledTable = ! this.isShowScheduledTable;
   }
 
   swipe(event) {
