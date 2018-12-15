@@ -41,7 +41,7 @@ import { Bac } from '../../providers/bac';
 export class StatisticPage {
 
   isShowDayTable: boolean = false;
-  isShowWeekTable: boolean = true;
+  isShowWeekTable: boolean = false;
   isShowMonthTable: boolean = false;
   isShowScheduledTable: boolean = false;
   isShowHint: boolean = false;
@@ -103,11 +103,28 @@ export class StatisticPage {
 
   ngAfterViewInit() {
     setInterval(() => this.updateBac(), 30000);
+ 
   }
 
   ionViewDidLoad() {
     this.updateBac();
     console.log('ionViewDidLoad StatisticPage');
+    this.midataService.search('Observation').then((data) => {
+      this.test = data[0].toJson();
+      
+      data.forEach((val) => {
+        console.log("foreach...");
+        let entry: any;
+        let alc: number;
+        entry = val.toJson();
+        alc = entry.component[0].valueQuantity.value
+        
+        console.log("type val: " + alc);
+        this.entries.push(alc);
+      })
+
+      this.isShowScheduledTable = true;
+    });
   }
 
   ionViewWillEnter() {
@@ -122,11 +139,7 @@ export class StatisticPage {
 
   changeView(): void { 
     this.isShowScheduledTable = ! this.isShowScheduledTable;
-    this.midataService.search('Observation').then((data) => {
-      this.test = data[0].toJson()
-      
-      
-    });
+    
   }
 
   swipe(event) {
