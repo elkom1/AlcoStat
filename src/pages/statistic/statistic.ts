@@ -47,7 +47,7 @@ export class StatisticPage {
   isShowHint: boolean = false;
 
   bac: Bac;
-  entries: any = [];
+  entries: any = []
   test: any = {};
 
 
@@ -106,29 +106,30 @@ export class StatisticPage {
  
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.updateBac();
-    console.log('ionViewDidLoad StatisticPage');
+    
     this.midataService.search('Observation').then((data) => {
       this.test = data[0].toJson();
+      this.test = this.test.effectiveDateTime;
       
       data.forEach((val) => {
         console.log("foreach...");
         let entry: any;
+        let value: any;
         let alc: number;
-        entry = val.toJson();
-        alc = entry.component[0].valueQuantity.value
-        
-        console.log("type val: " + alc);
-        this.entries.push(alc);
+        let time: any;
+        let category: any;
+        value = val.toJson();
+        alc = value.component[0].valueQuantity.value
+        time = value.effectiveDateTime;
+        category = value.component[1].valueString;
+        entry = {alc, time, category};
+        this.entries.push(entry);
       })
 
       this.isShowScheduledTable = true;
     });
-  }
-
-  ionViewWillEnter() {
-    this.updateBac();
   }
 
   updateBac() {

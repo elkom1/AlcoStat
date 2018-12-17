@@ -25,6 +25,19 @@
 
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
+    <div *ngIf="isShowScheduledTable">
+      <ion-list>
+        <ion-list-header>
+          Reiner Alkohol in Gramm
+          <button ion-button clear (click)="showInfo()">Getränke Infos</button>
+        </ion-list-header>
+        <ion-item *ngFor="let item of entries" padding-top>
+          <h3>{{ item.category }}</h3>
+          <p>{{ item.alc | number }} {{ item.time | date }} </p>
+        </ion-item>
+      </ion-list>
+    </div>
+
 
     <div *ngIf="isShowDayTable && !isShowScheduledTable">
       <img src="../../assets/imgs/statisticDay.png" alt="">
@@ -38,34 +51,10 @@
       <img src="../../assets/imgs/statisticMonth.png" alt="">
     </div>
 
-    <div *ngIf="isShowScheduledTable">
-      <p>Alkoholkonsum:</p>
-      <p>TEST: {{ test.component[0].valueQuantity.value }}</p>
-      
-      
-      <ion-list>
-        <ion-item *ngFor="let item of entries">
-          <p>{{ item }}</p>
-          
-        </ion-item>
-      </ion-list>
-    </div>
-
-
-
-
-    <div>
-        <button ion-button icon-only (click)="showInfo()">
-          <ion-icon name="md-information">
-          </ion-icon>
-        </button>
-      </div>
-
-    <ion-fab bottom center>
-      <button ion-fab (click)="changeView()">
+    <ion-item padding>
+      <button ion-fab item-right (click)="changeView()">
         <ion-icon name="list"></ion-icon>
       </button>
-    </ion-fab>
-
+    </ion-item>
   </div>
 </ion-content>
