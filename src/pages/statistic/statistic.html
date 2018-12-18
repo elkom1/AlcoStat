@@ -25,6 +25,10 @@
 
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
+    <div *ngIf="!isLoggedIn">
+      Bitte log dich in midata an
+    </div>
+
     <div *ngIf="isShowScheduledTable">
       <ion-list>
         <ion-list-header>

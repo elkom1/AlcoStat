@@ -5,7 +5,8 @@ import {
   NavController,
   NavParams,
   ActionSheetController,
-  AlertController
+  AlertController,
+  LoadingController
 } from 'ionic-angular';
 import {
   LoginPage
@@ -49,6 +50,7 @@ export class StatisticPage {
   bac: Bac;
   entries: any = []
   test: any = {};
+  isLoggedIn: boolean = false;
 
 
   private midataService: MidataService;
@@ -59,6 +61,7 @@ export class StatisticPage {
     public localStorage: LocalDatabaseProvider,
     public actionSheetController: ActionSheetController,
     midataService: MidataService,
+    private loadingCtrl: LoadingController,
     public alertCtr: AlertController) {
     this.midataService = midataService;
 
@@ -81,56 +84,71 @@ export class StatisticPage {
   }
 
   showDayTable() {
-    this.isShowDayTable = true; 
-    this.isShowWeekTable = false; 
-    this.isShowMonthTable = false; 
-    this.isShowScheduledTable = false; 
+    this.isShowDayTable = true;
+    this.isShowWeekTable = false;
+    this.isShowMonthTable = false;
+    this.isShowScheduledTable = false;
   }
 
   showWeekTable() {
-    this.isShowWeekTable = true; 
-    this.isShowDayTable = false; 
-    this.isShowMonthTable = false; 
-    this.isShowScheduledTable = false; 
+    this.isShowWeekTable = true;
+    this.isShowDayTable = false;
+    this.isShowMonthTable = false;
+    this.isShowScheduledTable = false;
   }
 
   showMonthTable() {
-    this.isShowMonthTable = true; 
-    this.isShowWeekTable = false; 
-    this.isShowDayTable = false; 
-    this.isShowScheduledTable = false; 
+    this.isShowMonthTable = true;
+    this.isShowWeekTable = false;
+    this.isShowDayTable = false;
+    this.isShowScheduledTable = false;
   }
 
   ngAfterViewInit() {
     setInterval(() => this.updateBac(), 30000);
- 
+
+
   }
 
   ionViewWillEnter() {
+
     this.updateBac();
-    
-    this.midataService.search('Observation').then((data) => {
-      this.test = data[0].toJson();
-      this.test = this.test.effectiveDateTime;
-      this.entries = []
+    this.isLoggedIn = <boolean>this.midataService.loggedIn();
 
-      data.forEach((val) => {
-        console.log("foreach...");
-        let entry: any;
-        let value: any;
-        let alc: number;
-        let time: any;
-        let category: any;
-        value = val.toJson();
-        alc = value.component[0].valueQuantity.value
-        time = value.effectiveDateTime;
-        category = value.component[1].valueString;
-        entry = {alc, time, category};
-        this.entries.push(entry);
+    if (this.isLoggedIn) {
+      let loading = this.loadingCtrl.create({
+        content: 'Bitte warten...'
+      });
+      loading.present().catch();
+
+
+
+      this.midataService.search('Observation').then((data) => {
+        this.test = data[0].toJson();
+        this.test = this.test.effectiveDateTime;
+        this.entries = []
+
+        data.forEach((val) => {
+          console.log("foreach...");
+          let entry: any;
+          let value: any;
+          let alc: number;
+          let time: any;
+          let category: any;
+          value = val.toJson();
+          alc = value.component[0].valueQuantity.value
+          time = value.effectiveDateTime;
+          category = value.component[1].valueString;
+          entry = { alc, time, category };
+          this.entries.push(entry);
+        })
+
+        this.isShowScheduledTable = true;
       })
-
-      this.isShowScheduledTable = true;
-    });
+      .then(() => {
+        loading.dismiss().catch();
+      })
+    }
   }
 
   updateBac() {
@@ -139,9 +157,9 @@ export class StatisticPage {
     })
   }
 
-  changeView(): void { 
-    this.isShowScheduledTable = ! this.isShowScheduledTable;
-    
+  changeView(): void {
+    this.isShowScheduledTable = !this.isShowScheduledTable;
+
   }
 
   swipe(event) {
@@ -159,43 +177,43 @@ export class StatisticPage {
     let actionSheet = this.actionSheetController.create({
       title: 'Einstellungen',
       buttons: [{
-          text: 'MIDATA Benutzerkonto',
-          icon: 'contact',
-          role: 'midata_account',
-          handler: () => {
-            this.navCtrl.push(LoginPage);
-          }
-        }, {
-          text: 'Mein Profil',
-          icon: 'person',
-          role: 'mein_profil',
-          handler: () => {
-            this.navCtrl.push(ProfilPage);
-          }
-        }, {
-          text: 'Datenschutzerklärung',
-          icon: 'lock',
-          role: 'datenschutz_erklaerung',
-          handler: () => {
-            this.navCtrl.push(DatenschutzPage)
-          }
-        }, {
-          text: 'Impressum',
-          icon: 'people',
-          role: 'impressum',
-          handler: () => {
-            this.navCtrl.push(ImpressumPage)
-          }
-        },
-        {
-          text: 'Logout',
-          icon: 'log-out',
-          role: 'Logout',
-          handler: () => {
-            this.midataService.logout();
-            this.navCtrl.push(LoginPage);
-          }
+        text: 'MIDATA Benutzerkonto',
+        icon: 'contact',
+        role: 'midata_account',
+        handler: () => {
+          this.navCtrl.push(LoginPage);
         }
+      }, {
+        text: 'Mein Profil',
+        icon: 'person',
+        role: 'mein_profil',
+        handler: () => {
+          this.navCtrl.push(ProfilPage);
+        }
+      }, {
+        text: 'Datenschutzerklärung',
+        icon: 'lock',
+        role: 'datenschutz_erklaerung',
+        handler: () => {
+          this.navCtrl.push(DatenschutzPage)
+        }
+      }, {
+        text: 'Impressum',
+        icon: 'people',
+        role: 'impressum',
+        handler: () => {
+          this.navCtrl.push(ImpressumPage)
+        }
+      },
+      {
+        text: 'Logout',
+        icon: 'log-out',
+        role: 'Logout',
+        handler: () => {
+          this.midataService.logout();
+          this.navCtrl.push(LoginPage);
+        }
+      }
       ]
     });
     actionSheet.present();
