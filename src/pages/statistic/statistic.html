@@ -38,11 +38,6 @@
       </ion-list>
     </div>
 
-
-    <div *ngIf="isShowDayTable && !isShowScheduledTable">
-      <img src="../../assets/imgs/statisticDay.png" alt="">
-    </div>
-
     <div *ngIf="isShowWeekTable && !isShowScheduledTable">
       <img src="../../assets/imgs/statistic.png" alt="">
     </div>
@@ -50,11 +45,5 @@
     <div *ngIf="isShowMonthTable && !isShowScheduledTable">
       <img src="../../assets/imgs/statisticMonth.png" alt="">
     </div>
-
-    <ion-item padding>
-      <button ion-fab item-right (click)="changeView()">
-        <ion-icon name="list"></ion-icon>
-      </button>
-    </ion-item>
   </div>
 </ion-content>
