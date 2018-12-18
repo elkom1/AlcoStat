@@ -31,7 +31,7 @@
           Reiner Alkohol in Gramm
           <button ion-button clear (click)="showInfo()">Getränke Infos</button>
         </ion-list-header>
-        <ion-item *ngFor="let item of entries" padding-top>
+        <ion-item *ngFor="let item of entries.slice().reverse()" padding-top>
           <h3>{{ item.category }}</h3>
           <p>{{ item.alc | number }} {{ item.time | date }} </p>
         </ion-item>

@@ -112,7 +112,8 @@ export class StatisticPage {
     this.midataService.search('Observation').then((data) => {
       this.test = data[0].toJson();
       this.test = this.test.effectiveDateTime;
-      
+      this.entries = []
+
       data.forEach((val) => {
         console.log("foreach...");
         let entry: any;
