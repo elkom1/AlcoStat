@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { UserProfil } from '../userProfil';
 import { Bac } from '../bac';
+import { Score } from '../score';
 
 /*
   Generated class for the LocalDatabaseProvider provider.
@@ -15,6 +16,8 @@ import { Bac } from '../bac';
 export class LocalDatabaseProvider {
   userProfil_key: string = 'userProfil';
   bac_key: string = 'bac';
+  score_key: string = 'score';
+  scoreArr: Score[] = [];
 
   constructor(public localStorage: Storage) {
     console.log('Hello LocalDatabaseProvider Provider');
@@ -34,6 +37,28 @@ export class LocalDatabaseProvider {
 
   getBac(): Promise<Bac> {
     return this.localStorage.get(this.bac_key);
+  }
+
+  setReactionScore(time: number): Promise<any> {
+   
+   return this.getReactionScore().then((val) => {
+      let score: Score = {time: time, bac: 0};
+      this.scoreArr = val;
+      this.scoreArr.push(score)
+      this.localStorage.set(this.score_key,this.scoreArr);
+      return true;
+    });
+
+  }
+
+  getReactionScore() : Promise<Score[]> {
+    return this.localStorage.get(this.score_key).then((val) => {
+      if(val == null) {
+        return [];
+      } else {
+        return val;
+      }
+    });
   }
 
 

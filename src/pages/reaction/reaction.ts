@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { LocalDatabaseProvider } from '../../providers/local-database/local-database';
+import { Score } from '../../providers/score';
 
 
 @Component({
@@ -18,8 +20,9 @@ export class ReactionPage {
   __nativeST__:any = window.setTimeout
 
   // variable for score
-  scores: number[] = [];
+  scores: Score[] = [];
   isShowScore: boolean = false;
+  
 
   // variables for getRandomColor
   letters: string = "0123456789ABCDEF";
@@ -31,11 +34,16 @@ export class ReactionPage {
   createdTime: Date;
   reactionTime: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public localDatabase: LocalDatabaseProvider ,
+    public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ReactionPage');
+  ionViewWillEnter() {
+    this.localDatabase.getReactionScore().then((val) => {
+      this.scores = val;
+    })
   }
 
   // methods
@@ -64,7 +72,12 @@ export class ReactionPage {
 
 
   saveScore(time: number): void {
-    this.scores.push(time);
+    this.localDatabase.setReactionScore(time).then((val) => {
+      this.localDatabase.getReactionScore().then((val) => {
+        this.scores = val;
+      })
+    })
+    
   }
 
   showScores(): void {
