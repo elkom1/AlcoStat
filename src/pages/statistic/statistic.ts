@@ -121,12 +121,17 @@ export class StatisticPage {
       });
       loading.present().catch();
 
+      let user = this.midataService.getUser();
 
-
-      this.midataService.search('Observation').then((data) => {
-        this.test = data[0].toJson();
-        this.test = this.test.effectiveDateTime;
+      this.midataService.search('Observation', { subject: 'Patient/' + user.id }).then((data) => {
+        console.log("search Observation...")
+        console.log("length of data: " + data.length);
+        //this.test = data[0].toJson();
+        //this.test = this.test.effectiveDateTime;
         this.entries = []
+        let todayDate = new Date();
+        
+
 
         data.forEach((val) => {
           console.log("foreach...");
@@ -136,18 +141,25 @@ export class StatisticPage {
           let time: any;
           let category: any;
           value = val.toJson();
-          alc = value.component[0].valueQuantity.value
-          time = value.effectiveDateTime;
-          category = value.component[1].valueString;
-          entry = { alc, time, category };
-          this.entries.push(entry);
+          let obsDate = new Date(value.effectiveDateTime)
+          if (todayDate.getDay() == obsDate.getDay()) {
+            console.log("todayDate: " + todayDate.getDay());
+            alc = value.component[0].valueQuantity.value
+            time = value.effectiveDateTime;
+            category = value.component[1].valueString;
+            entry = { alc, time, category };
+            this.entries.push(entry);
+          }
         })
 
         this.isShowScheduledTable = true;
       })
-      .then(() => {
-        loading.dismiss().catch();
-      })
+        .then(() => {
+          loading.dismiss().catch();
+        }).catch(() => {
+          loading.dismiss().catch();
+          console.log("error in search Observation");
+        })
     }
   }
 

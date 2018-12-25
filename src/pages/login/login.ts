@@ -39,6 +39,18 @@ export class LoginPage {
     this.inAppBrowser.create('https://midata.coop');
   }
 
+  ngAfterViewInit() {
+    this.platform.ready().then(() => {
+      this.midataService.openSession().then((success) => {
+        if(success) {
+          this.navCtrl.popToRoot();
+        } else {
+          console.log("login no success");
+        }
+      });
+    });
+  }
+
 
   login() {
     let loading = this.loadingCtrl.create({
