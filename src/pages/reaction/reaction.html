@@ -39,7 +39,7 @@
         Deine erzielten Scores
       </ion-card-header>
       <ion-card-content>
-        <ion-item *ngFor="let score of scores">{{ score.time }} ms</ion-item>
+        <ion-item *ngFor="let score of scores">{{ score.time }} ms mit {{ score.bac | number }} ‰</ion-item>
       <button ion-button round outline (click)="hideScore()">Verbergen</button>
     </ion-card-content>
     </ion-card>

@@ -40,20 +40,20 @@ export class LocalDatabaseProvider {
   }
 
   setReactionScore(time: number): Promise<any> {
-   
-   return this.getReactionScore().then((val) => {
-      let score: Score = {time: time, bac: 0};
-      this.scoreArr = val;
-      this.scoreArr.push(score)
-      this.localStorage.set(this.score_key,this.scoreArr);
-      return true;
+    return this.getReactionScore().then((val) => {
+      return this.getBac().then((bac) => {
+        let score: Score = { time: time, bac: bac.value };
+        this.scoreArr = val;
+        this.scoreArr.push(score)
+        this.localStorage.set(this.score_key, this.scoreArr);
+        return true;
+      })
     });
-
   }
 
-  getReactionScore() : Promise<Score[]> {
+  getReactionScore(): Promise<Score[]> {
     return this.localStorage.get(this.score_key).then((val) => {
-      if(val == null) {
+      if (val == null) {
         return [];
       } else {
         return val;
