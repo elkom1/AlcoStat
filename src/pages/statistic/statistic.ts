@@ -184,6 +184,10 @@ export class StatisticPage {
     this.navCtrl.push(LoginPage);
   }
 
+  logginOnMidata() {
+    this.navCtrl.push(LoginPage);
+  }
+
   // function for show settings
   showMore(): void {
     let actionSheet = this.actionSheetController.create({

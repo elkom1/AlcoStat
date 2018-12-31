@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-
+<div *ngIf="isLoggedIn">
   <ion-segment>
     <ion-segment-button value="day" (ionSelect)="showDayTable()">
       Tag
@@ -22,11 +22,15 @@
       Monat
     </ion-segment-button>
   </ion-segment>
-
+</div>
+  
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
     <div *ngIf="!isLoggedIn">
-      Bitte log dich in midata an
+      <ion-label class="hint2" text-center text-wrap>
+        Bitte loggen Sie sich auf MIDATA ein, um den Konsumverlauf zu sehne.
+      </ion-label>
+      <button ion-button clear (click)="logginOnMidata()">Hier einloggen</button>
     </div>
 
     <div *ngIf="isShowScheduledTable">
