@@ -21,6 +21,13 @@
       <div class="drinkImage" (click)="addDrink(3)"><img src="../../assets/imgs/shot.png" alt="" height="50"></div>
     </div>
 
+    <div *ngIf="!isAddingDrink">
+      <ion-label class="hint" text-center text-wrap>
+        Drücken Sie auf eines der vier <strong>Getränke</strong>, um diese hinzu zufügen.
+      </ion-label>
+     </div>
+   
+
     <div *ngIf="isAddingDrink" text-center>
       <div class="drinkImage" padding-top>
         <!--Grid-->
