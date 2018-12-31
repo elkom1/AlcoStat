@@ -9,16 +9,15 @@
 
 <ion-content padding>
 
-  <button ion-button large block outline *ngIf="isShowStartButton" (click)="startGame()">
+  <button ion-button block outline *ngIf="isShowStartButton" (click)="startGame()">
     Reaktionszeit jetzt testen</button>
 
   <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Drücke auf den Bildschirm, sobald das farbige
     Feld erscheint</p>
 
-  <div *ngIf="reactionTime && isShowStartButton && !hasFailed">
-    <p class="score"> Dein Score: {{ reactionTime }} ms</p>
+  <div padding-top *ngIf="reactionTime && isShowStartButton && !hasFailed">
+    <h4 ion-text color="secondary">Dein Score: {{ reactionTime }} ms</h4>
   </div>
-
 
   <div *ngIf="hasFailed">
     <p class="fail">FAIL</p>
@@ -27,23 +26,24 @@
   <div class="antiCheatDiv" *ngIf="isShowAntiCheat" (click)="failed()"></div>
   <div class="playGround" *ngIf="isPlayGame" [style.background]="color" (click)="stopTime()"></div>
 
-  <ion-fab bottom right>
-    <button ion-fab (click)="showScores()">
-      <ion-icon name="md-stats"></ion-icon>
-    </button>
-  </ion-fab>
-
-  <div *ngIf="isShowScore">
+  <div *ngIf="isShowScore && !isPlayGame">
     <ion-card>
       <ion-card-header text-center style="color: white; background-color: blue">
         Deine erzielten Scores
       </ion-card-header>
       <ion-card-content>
-        <ion-item *ngFor="let score of scores">{{ score.time }} ms mit {{ score.bac | number }} ‰</ion-item>
-      <button ion-button round outline (click)="hideScore()">Verbergen</button>
-    </ion-card-content>
+        <ion-item *ngFor="let score of scores.slice().reverse()">{{ score.time }} ms mit {{ score.bac | number }} ‰</ion-item>
+        <button ion-button round outline (click)="hideScore()">Verbergen</button>
+      </ion-card-content>
     </ion-card>
   </div>
+
+  
+  <div bottom center *ngIf="isShowStartButton && !isShowScore">
+      <button ion-button clear (click)="showScores()">
+        Scores anzeigen
+      </button>
+    </div>
 
   <!--
   <div *ngIf="isPlayGame" class="playGround">
