@@ -10,20 +10,18 @@
 </ion-header>
 
 <ion-content padding>
-<div *ngIf="isLoggedIn">
-  <ion-segment>
-    <ion-segment-button value="day" (ionSelect)="showDayTable()">
-      Tag
+  <ion-segment [(ngModel)]="timePeriod">
+    <ion-segment-button value="day">
+      Heute
     </ion-segment-button>
-    <ion-segment-button value="week" (ionSelect)="showWeekTable()">
+    <ion-segment-button value="week">
       Woche
     </ion-segment-button>
-    <ion-segment-button value="month" (ionSelect)="showMonthTable()">
+    <ion-segment-button value="month">
       Monat
     </ion-segment-button>
   </ion-segment>
-</div>
-  
+
   <!--add swipe gesture-->
   <div class="main-content" (swipe)="swipe($event)">
     <div *ngIf="!isLoggedIn">
@@ -33,25 +31,39 @@
       <button ion-button clear (click)="logginOnMidata()">Hier einloggen</button>
     </div>
 
-    <div *ngIf="isShowScheduledTable">
-      <ion-list>
-        <ion-list-header>
-          Reiner Alkohol in Gramm
-          <button ion-button clear (click)="showInfo()">Getränke Infos</button>
-        </ion-list-header>
-        <ion-item *ngFor="let item of entries.slice().reverse()" padding-top>
-          <h3>{{ item.category }}</h3>
-          <p>{{ item.alc | number }} {{ item.time | date }} </p>
-        </ion-item>
-      </ion-list>
+
+
+    <!--Day-->
+    <div *ngIf="isLoggedIn && timePeriod == 'day'">
+        <div *ngIf="entries.length == 0">
+            <p ion-text class="hint2">Sie haben heute nichts konsumiert</p>
+          </div>
+
+      <div padding-top *ngIf="entries.length > 0">
+        <h4 ion-text color="primary">Konsum von heute</h4>
+        <p class="hint2">Reiner Alkohol in Gramm</p>
+      </div>
+
+      <div>
+        <ion-list >
+          <ion-item *ngFor="let item of entries.slice().reverse()" padding-top>
+            <h3>{{ item.category }}</h3>
+            <p>{{ item.alc | number }} mg, {{ item.time | date }} </p>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
 
-    <div *ngIf="isShowWeekTable && !isShowScheduledTable">
+    <!--Week-->
+    <div *ngIf="isLoggedIn && timePeriod == 'week'">
       <img src="../../assets/imgs/statistic.png" alt="">
+
     </div>
 
-    <div *ngIf="isShowMonthTable && !isShowScheduledTable">
+    <!--Month-->
+    <div *ngIf="isLoggedIn && timePeriod == 'month'">
       <img src="../../assets/imgs/statisticMonth.png" alt="">
+
     </div>
   </div>
 </ion-content>

@@ -51,6 +51,7 @@ export class StatisticPage {
   entries: any = []
   test: any = {};
   isLoggedIn: boolean = false;
+  timePeriod: string = 'day';
 
 
   private midataService: MidataService;
@@ -131,8 +132,6 @@ export class StatisticPage {
         this.entries = []
         let todayDate = new Date();
         
-
-
         data.forEach((val) => {
           console.log("foreach...");
           let entry: any;
