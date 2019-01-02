@@ -57,12 +57,14 @@
     <!--Week-->
     <div *ngIf="isLoggedIn && timePeriod == 'week'">
       <img src="../../assets/imgs/statistic.png" alt="">
+      <button ion-button small outline (click)="showInfo()">Getränke Infos</button>
 
     </div>
 
     <!--Month-->
     <div *ngIf="isLoggedIn && timePeriod == 'month'">
       <img src="../../assets/imgs/statisticMonth.png" alt="">
+      <button ion-button small outline (click)="showInfo()">Getränke Infos</button>
 
     </div>
   </div>
