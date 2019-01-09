@@ -141,7 +141,7 @@ export class StatisticPage {
           let category: any;
           value = val.toJson();
           let obsDate = new Date(value.effectiveDateTime)
-          if (todayDate.getDay() == obsDate.getDay()) {
+          if (todayDate.getDate() == obsDate.getDate() && todayDate.getMonth() == obsDate.getMonth()) {
             console.log("todayDate: " + todayDate.getDay());
             alc = value.component[0].valueQuantity.value
             time = value.effectiveDateTime;

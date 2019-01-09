@@ -29,7 +29,7 @@
   <div *ngIf="isShowScore && !isPlayGame">
     <ion-card>
       <ion-card-header text-center style="color: white; background-color: blue">
-        Deine erzielten Scores
+        Meine erzielten Scores
       </ion-card-header>
       <ion-card-content>
         <ion-item *ngFor="let score of scores.slice().reverse()">{{ score.time }} ms mit {{ score.bac | number }} ‰</ion-item>
@@ -39,7 +39,7 @@
   </div>
 
   
-  <div bottom center *ngIf="isShowStartButton && !isShowScore">
+  <div text-center *ngIf="isShowStartButton && !isShowScore">
       <button ion-button clear (click)="showScores()">
         Scores anzeigen
       </button>

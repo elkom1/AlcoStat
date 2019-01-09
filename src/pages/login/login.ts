@@ -61,7 +61,7 @@ export class LoginPage {
 
     this.midataService.authenticate()
       .then((success: boolean) => {
-        return this.navCtrl.pop();
+        return this.navCtrl.popToRoot();
       })
       .then(() => {
         loading.dismiss().catch();

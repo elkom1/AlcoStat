@@ -23,7 +23,7 @@
 
     <div *ngIf="!isAddingDrink">
       <ion-label class="hint" text-center text-wrap>
-        Drücken Sie auf eines der vier <strong>Getränke</strong>, um dieses hinzu zufügen.
+        Drücken Sie auf <strong>einen der vier Getränketypen</strong> (Bier, Wein, Cocktail oder Hartgetränk) um diese hinzuzufügen
       </ion-label>
      </div>
    
@@ -81,7 +81,7 @@
             <ion-col>
            
               <div class="addButtonContainer">
-                  <button ion-button icon-only round small (click)="showHint(userConsumation.drinkIndex)">
+                  <button ion-button icon-only round (click)="showHint(userConsumation.drinkIndex)">
                       <ion-icon name="md-information">
                       </ion-icon>
                     </button>

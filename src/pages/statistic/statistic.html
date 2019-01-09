@@ -26,9 +26,11 @@
   <div class="main-content" (swipe)="swipe($event)">
     <div *ngIf="!isLoggedIn">
       <ion-label class="hint2" text-center text-wrap>
-        Bitte loggen Sie sich auf MIDATA ein, um den Konsumverlauf zu sehne.
+        Bitte loggen Sie sich in MIDATA ein, um Ihren Konsumverlauf nachzuverfolgen.
       </ion-label>
-      <button ion-button clear (click)="logginOnMidata()">Hier einloggen</button>
+      <div text-center>
+        <button ion-button clear (click)="logginOnMidata()">Hier in MIDATA einloggen</button>
+      </div>
     </div>
 
 
@@ -39,9 +41,8 @@
             <p ion-text class="hint2">Sie haben heute nichts konsumiert</p>
           </div>
 
-      <div padding-top *ngIf="entries.length > 0">
-        <h4 ion-text color="primary">Konsum von heute</h4>
-        <p class="hint2">Reiner Alkohol in Gramm</p>
+      <div padding-top *ngIf="entries.length > 0" text-center>
+        <p class="hint2">In dieser Ansicht sehen Sie Ihren heutigen Alkoholkonsum in reinen Gramm Alkohol. Die WHO empfiehlt nicht mehr als 40mg Alkohol pro Tag.</p>
       </div>
 
       <div>
