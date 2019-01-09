@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Reaktions-Test</ion-title>
+    <ion-title>Reaktionstest</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,13 +10,13 @@
 <ion-content padding>
 
   <button ion-button block outline *ngIf="isShowStartButton" (click)="startGame()">
-    Reaktionszeit jetzt testen</button>
+    Meine Reaktionszeit testen</button>
 
   <p class="tip" text-center *ngIf="isShowStartButton && !reactionTime">Drücke auf den Bildschirm, sobald das farbige
     Feld erscheint</p>
 
   <div padding-top *ngIf="reactionTime && isShowStartButton && !hasFailed">
-    <h4 ion-text color="secondary">Dein Score: {{ reactionTime }} ms</h4>
+    <h4 ion-text text-center>Dein Score: {{ reactionTime }} ms</h4>
   </div>
 
   <div *ngIf="hasFailed">
@@ -33,7 +33,10 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item *ngFor="let score of scores.slice().reverse()">{{ score.time }} ms mit {{ score.bac | number }} ‰</ion-item>
-        <button ion-button round outline (click)="hideScore()">Verbergen</button>
+        <div text-center>
+            <button ion-button round outline (click)="hideScore()">Verbergen</button>
+        </div>
+        
       </ion-card-content>
     </ion-card>
   </div>
