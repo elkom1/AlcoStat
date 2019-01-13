@@ -42,14 +42,14 @@
           </div>
 
       <div padding-top *ngIf="entries.length > 0" text-center>
-        <p class="hint2">In dieser Ansicht sehen Sie Ihren heutigen Alkoholkonsum in reinen Gramm Alkohol. Die WHO empfiehlt nicht mehr als 40mg Alkohol pro Tag.</p>
+        <p class="hint2">In dieser Ansicht sehen Sie Ihren heutigen Alkoholkonsum in reinen Gramm Alkohol. Die WHO empfiehlt nicht mehr als 40g Alkohol pro Tag.</p>
       </div>
 
       <div>
         <ion-list >
           <ion-item *ngFor="let item of entries.slice().reverse()" padding-top>
             <h3>{{ item.category }}</h3>
-            <p>{{ item.alc | number }} mg, {{ item.time | date }} </p>
+            <p>{{ item.alc | number }} g, {{ item.time | date }} </p>
           </ion-item>
         </ion-list>
       </div>
