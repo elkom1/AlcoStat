@@ -38,7 +38,7 @@
     <!--Day-->
     <div *ngIf="isLoggedIn && timePeriod == 'day'">
         <div *ngIf="entries.length == 0">
-            <p ion-text class="hint2">Sie haben heute nichts konsumiert</p>
+            <p text-center ion-text class="hint2">Sie haben heute nichts konsumiert</p>
           </div>
 
       <div padding-top *ngIf="entries.length > 0" text-center>

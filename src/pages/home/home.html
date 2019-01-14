@@ -21,18 +21,25 @@
       <div class="drinkImage" (click)="addDrink(3)"><img src="../../assets/imgs/shot.png" alt="" height="50"></div>
     </div>
 
+    <div class="borderDiv" *ngIf="!isLoggedIn" no-padding>
+      <p text-center>Um Konsum abzuspeichern, bitte</p>
+      <div no-padding text-center>
+          <button text-center ion-button small clear (click)="logginOnMidata()"> auf MIDATA einloggen</button>
+      </div>
+    </div>
+ 
     <div *ngIf="!isAddingDrink">
       <ion-label class="hint" text-center text-wrap>
-        Drücken Sie auf <strong>einen der vier Getränketypen</strong> (Bier, Wein, Cocktail oder Hartgetränk) um diese hinzuzufügen
+        Drücken Sie auf <strong>einen der vier Getränketypen</strong> (Bier, Wein, Cocktail oder Hartgetränk) um diese
+        hinzuzufügen
       </ion-label>
-     </div>
-   
+    </div>
 
     <div *ngIf="isAddingDrink" text-center>
       <div class="drinkImage" padding-top>
         <!--Grid-->
         <ion-grid>
-       
+
           <!-- First row -->
           <!-- Reduce Volume -->
           <ion-row align-items-center>
@@ -48,24 +55,24 @@
               <ion-label class="volume-label">
                 {{ userConsumation.volume }} ml
               </ion-label>
-              
+
             </ion-col>
             <!-- Increase Volue -->
-        
+
             <ion-col class="col-container">
               <button ion-button icon-only clear large (click)="increaseVolume()">
                 <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
               </button>
             </ion-col>
-            
+
           </ion-row>
 
           <!-- second row -->
           <ion-row>
-             
+
             <!-- Increase number of drinks -->
             <ion-col>
-             
+
               <button ion-button icon-only clear small (click)="increaseNumberOfDrinks()">
                 <ion-icon name="ios-arrow-up-outline"></ion-icon>
               </button>
@@ -79,12 +86,12 @@
 
             <!-- Add Drink -->
             <ion-col>
-           
+
               <div class="addButtonContainer">
-                  <button ion-button icon-only round (click)="showHint(userConsumation.drinkIndex)">
-                      <ion-icon name="md-information">
-                      </ion-icon>
-                    </button>
+                <button ion-button icon-only round (click)="showHint(userConsumation.drinkIndex)">
+                  <ion-icon name="md-information">
+                  </ion-icon>
+                </button>
                 <button ion-button round icon-start (click)="saveDrink()">
                   <ion-icon name="md-checkmark-circle"></ion-icon>
                   Hinzufügen

@@ -58,6 +58,7 @@ export class HomePage {
   //test:any = "noEnter";
 
   bac: Bac;
+  isLoggedIn: boolean = false;
 
   intervalID: number = 0;
 
@@ -133,6 +134,14 @@ export class HomePage {
     this.updateBac(0).then(() => {
       console.log('BAC got updated')
     });
+  }
+
+  ionViewWillEnter() {
+    this.isLoggedIn = <boolean>this.midataService.loggedIn();
+  }
+
+  logginOnMidata() {
+    this.navCtrl.push(LoginPage);
   }
 
   ngAfterViewInit() {
